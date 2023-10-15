@@ -1,8 +1,12 @@
 package com.example.puddyBuddy.domain;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "clothes_photos")
+@Getter
+@Setter
 public class ClothesPhoto {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)

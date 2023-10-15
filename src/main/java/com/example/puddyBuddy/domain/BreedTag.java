@@ -1,14 +1,20 @@
 package com.example.puddyBuddy.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "breed_tags")
-public record BreedTag(
+@Getter
+@Setter
+public class BreedTag {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "breed_tag_id")
-        Long breedTagsId,
+        private Long breedTagId;
+
         @Column(name = "breed_tag_name")
-        String breedTagName)
-{
+        private String breedTagName;
+
 }

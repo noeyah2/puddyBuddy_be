@@ -1,21 +1,24 @@
 package com.example.puddyBuddy.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "ar_clothes")
-public record ArClothes (
+@Getter
+@Setter
+public class ArClothes {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "ar_clothes_id")
-        Long arClothesId,
+        private Long arClothesId;
 
         @ManyToOne
         @JoinColumn(name = "clothes_id")
-        Clothes clothes,
+        private Clothes clothes;
 
         @Column(name = "pattern_url")
-        String PatternUrl
-)
-{
+        private String patternUrl;
+
 }

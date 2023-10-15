@@ -1,14 +1,20 @@
 package com.example.puddyBuddy.domain;
+
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "sizes")
-public record Size (
+@Getter
+@Setter
+public class Size {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "size_id")
-        Long sizeId,
+        private Long sizeId;
+
         @Column(name = "name")
-        String name)
-{
+        private String name;
+
 }
