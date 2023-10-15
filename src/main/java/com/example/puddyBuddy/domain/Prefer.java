@@ -1,13 +1,38 @@
 package com.example.puddyBuddy.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "prefers")
-public record Prefer (
+@Getter
+@Setter
+public class Prefer {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "prefer_id")
-        Long preferId)
-{
+        private Long preferId;
+
+        @ManyToOne
+        @JoinColumn(name = "user_id")
+        private User user;
+
+        @ManyToOne
+        @JoinColumn(name = "breed_tag_id")
+        private BreedTag breedTag;
+
+        @ManyToOne
+        @JoinColumn(name = "personal_color_id")
+        private PersonalColor personalColor;
+
+        @Column(name = "name")
+        private String name;
+
+        @Column(name = "chest")
+        private Float chest;
+
+        @Column(name = "back")
+        private Float back;
+
 }

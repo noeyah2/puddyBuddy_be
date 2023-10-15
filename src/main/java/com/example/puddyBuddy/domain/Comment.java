@@ -1,12 +1,29 @@
 package com.example.puddyBuddy.domain;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDateTime;
 @Entity
 @Table(name = "comments")
-public record Comment (
+public class Comment {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "comment_id")
-        Long commentId)
-{
+        private Long commentId;
+
+        @ManyToOne
+        @JoinColumn(name = "user_id")
+        private User user;
+
+        @ManyToOne
+        @JoinColumn(name = "Board_id")
+        private Board board;
+
+        @Column(name = "content")
+        private String content;
+
+        @CreationTimestamp
+        @Column(name = "create_date")
+        private LocalDateTime createDate;
+
 }

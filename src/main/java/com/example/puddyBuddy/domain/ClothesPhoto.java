@@ -3,10 +3,23 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "clothes_photos")
-public record ClothesPhoto (
+public class ClothesPhoto {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "clothes_photo_id")
-        Long clothesPhotoId)
-{
+        private Long clothesPhotoId;
+
+        @ManyToOne
+        @JoinColumn(name = "clothes_id")
+        private Clothes clothes;
+
+        @Column(name = "photo1_url")
+        private String photo1_url;
+
+        @Column(name = "photo2_url")
+        private String photo2_url;
+        @Column(name = "photo3_url")
+        private String photo3_url;
+
+
 }

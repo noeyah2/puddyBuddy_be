@@ -8,6 +8,14 @@ public record ArClothes (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "ar_clothes_id")
-        Long arClothesId)
+        Long arClothesId,
+
+        @ManyToOne
+        @JoinColumn(name = "clothes_id")
+        Clothes clothes,
+
+        @Column(name = "pattern_url")
+        String PatternUrl
+)
 {
 }

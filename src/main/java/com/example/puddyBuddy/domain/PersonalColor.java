@@ -7,6 +7,9 @@ public record PersonalColor (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "personal_color_id")
-        Long personalColorId)
+        Long personalColorId,
+        @Column(name = "name")
+        String name
+)
 {
 }

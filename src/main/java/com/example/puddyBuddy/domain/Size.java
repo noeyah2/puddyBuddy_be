@@ -7,6 +7,8 @@ public record Size (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "size_id")
-        Long sizeId)
+        Long sizeId,
+        @Column(name = "name")
+        String name)
 {
 }
