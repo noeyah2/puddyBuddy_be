@@ -1,4 +1,4 @@
-package com.example.puddyBuddy.dto.Prefer;
+package com.example.puddyBuddy.dto;
 
 import com.example.puddyBuddy.domain.Prefer;
 import lombok.Getter;

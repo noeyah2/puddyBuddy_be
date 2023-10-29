@@ -21,4 +21,9 @@ public class BoardService {
         List<Board> boards = boardRepository.findAll();
         return boards;
     }
+
+    public Long create(Board board) {
+        Board savedBoard = boardRepository.save(board);
+        return savedBoard.getBoardId();
+    }
 }
