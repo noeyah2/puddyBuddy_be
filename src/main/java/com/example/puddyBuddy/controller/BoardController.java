@@ -1,20 +1,25 @@
 package com.example.puddyBuddy.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import com.example.puddyBuddy.domain.*;
+import com.example.puddyBuddy.dto.board.*;
 import com.example.puddyBuddy.service.BoardService;
-import org.springframework.beans.factory.annotation.*;
+import com.example.puddyBuddy.exception.common.*;
+import com.example.puddyBuddy.response.BaseResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.List;
 
 @Controller
 @RestController
 @RequestMapping( value = "/boards",  produces = "application/json;charset=utf8")
+@Tag(name = "게시판 API")
 public class BoardController {
     private final BoardService boardService;
 
@@ -28,30 +33,14 @@ public class BoardController {
         return boards;
     }
 
+    @Operation(summary = "게시글 등록", description = "게시글에서 글을 등록했습니다.")
     @PostMapping("/create")
-    public Long createBoard(
-            @RequestParam("user_id") Long userId,
-            @RequestParam("prefer_id") Long preferId,
-            @RequestParam("clothes_id") Long clothesId,
-            @RequestParam("content") String content,
-            @RequestParam("photo_url") String photoUrl) {
-
-        Board board = new Board();
-        // 여기에서 Board 객체에 필요한 데이터를 설정
-        User user = new User();
-        user.setUserId(userId);
-        Prefer prefer = new Prefer();
-        prefer.setPreferId(preferId);
-        Clothes clothes = new Clothes();
-        clothes.setClothesId(clothesId);
-
-        board.setUser(user);
-        board.setPrefer(prefer);
-        board.setClothes(clothes);
-        board.setContent(content);
-        board.setPhotoUrl(photoUrl);
-
-        Long boardId = boardService.create(board);
-        return boardId;
+    public BaseResponse<BoardCreateRes> createBoard(@RequestBody BoardCreateReq boardInsertReq) {
+        try{
+            BoardCreateRes boardInsertRes = boardService.createBoard(boardInsertReq.getUserId(), boardInsertReq.getPreferId(), boardInsertReq.getClothesId(), boardInsertReq.getContent(), boardInsertReq.getPhotoUrl());
+            return new BaseResponse<>(boardInsertRes);
+        } catch(BusinessException e) {
+            return new BaseResponse<>(e.getErrorCode());
+        }
     }
 }
