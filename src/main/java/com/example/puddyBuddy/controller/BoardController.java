@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
+import java.io.IOException;
+import java.util.List;
+
 @Controller
 @RestController
 @RequestMapping( value = "/boards",  produces = "application/json;charset=utf8")
