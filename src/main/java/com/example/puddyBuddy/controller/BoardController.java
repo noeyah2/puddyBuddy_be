@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -49,6 +50,7 @@ public class BoardController {
     @GetMapping("/delete/{boardId}")
     public String deleteBoard(@PathVariable Long boardId){
         boardService.deleteBoard(boardId);
-        return "redirect:/board/";
+        return "redirect:/boards";
+//        return new RedirectView("/boards");
     }
 }
