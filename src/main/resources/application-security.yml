@@ -1,0 +1,6 @@
+# S3
+cloud.aws.credentials.accessKey=AKIAT3CM3M7ESAATC2G2
+cloud.aws.credentials.secretKey=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
+cloud.aws.s3.bucket=puddybuddybucket
+cloud.aws.region.static=ap-northeast-2
+cloud.aws.stack.auto-=false
