@@ -27,6 +27,7 @@ public class BoardController {
         this.boardService = boardService;
     }
 
+    @Operation(summary = "게시글 전부 보기")
     @GetMapping
     public @ResponseBody List<Board> getBoards() {
         List<Board> boards = boardService.getBoards();
@@ -42,5 +43,12 @@ public class BoardController {
         } catch(BusinessException e) {
             return new BaseResponse<>(e.getErrorCode());
         }
+    }
+
+    @Operation(summary = "게시글 삭제", description = "게시글에서 해당 글을 삭제했습니다.")
+    @GetMapping("/delete/{boardId}")
+    public String deleteBoard(@PathVariable Long boardId){
+        boardService.deleteBoard(boardId);
+        return "redirect:/board/";
     }
 }
