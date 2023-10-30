@@ -36,9 +36,4 @@ public class Clothes {
         @JoinColumn(name = "color_id")
         private Color color;
 
-        @ManyToOne
-        @JoinColumn(name = "size_id")
-        private Size size;
-
-
 }

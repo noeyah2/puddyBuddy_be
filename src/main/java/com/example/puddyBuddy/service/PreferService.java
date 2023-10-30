@@ -1,7 +1,7 @@
 package com.example.puddyBuddy.service;
 
 import com.example.puddyBuddy.domain.Prefer;
-import com.example.puddyBuddy.dto.Prefer.PreferDTO;
+import com.example.puddyBuddy.dto.prefer.PreferDTO;
 import com.example.puddyBuddy.repository.PreferRepository;
 import org.springframework.stereotype.Service;
 
