@@ -5,6 +5,10 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 src/main/resources/application-security.yml
+<<<<<<< HEAD
+=======
+.DS_Store
+>>>>>>> 54f2bf0 (게시판 삭제 구현 중 (수정 전))
 
 ### STS ###
 .apt_generated

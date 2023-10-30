@@ -14,7 +14,7 @@ public enum ErrorCode {
     HANDLE_ACCESS_DENIED(false, 2002, "접근할 수 없습니다."),
     INTERNAL_SERVER_ERROR(false, 2003, "문제가 발생했습니다."),
     FAILED_TO_SEND_EMAIL(false, 2004, "이메일 발송에 실패했습니다"),
-    EMPTY_DATA(false, 2005, "비어 있는 값을 주셨습니다."),
+    EMPTY_DATA(false, 2005, "비어 있는 값을 입력했습니다."),
     FAILED_TO_CREATE_PDF(false, 2006, "PDF 생성에 실패했습니다."),
 
     /*유저 3000*/
@@ -23,7 +23,7 @@ public enum ErrorCode {
     EMAIL_SENDING_ERROR(false, 3003, "이메일 전송에 실패하였습니다."),
     POST_ACCOUNTS_EMPTY_EMAIL(false, 3004, "이메일을 입력해주세요."),
     POST_ACCOUNTS_EMPTY_NAME(false, 3005, "이름을 입력해주세요."),
-    POST_ACCOUNTS_INVALID_EMAIL(false, 3006, "이메일 형식이 잘 못 되었습니다."),
+    POST_ACCOUNTS_INVALID_EMAIL(false, 3006, "이메일 형식이 잘못되었습니다."),
     FAILED_TO_LOGIN(false, 3007, "비밀번호가 틀렸습니다."),
 
     /*서버, DB 4000*/
@@ -33,6 +33,8 @@ public enum ErrorCode {
     NO_EXIST_CLOTHESCODE(false, 4003, "없는 옷 코드입니다."),
     NO_EXIST_WORD_TYPE(false, 4004, "단어 타입이 존재하지 않습니다."),
     TIMEOUT_EXCEPTION(false, 4005, "문제를 생성하는데 시간이 오래 소요됩니다"),
+
+    /*상품 관련 5000*/
 
     ;
 

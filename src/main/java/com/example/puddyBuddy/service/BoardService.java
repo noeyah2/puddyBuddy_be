@@ -26,10 +26,6 @@ public class BoardService {
     private final PreferRepository preferRepository;
     private final ClothesRepository clothesRepository;
 
-//    public BoardService(BoardRepository boardRepository) {
-//        this.boardRepository = boardRepository;
-//    }
-
     public List<Board> getBoards(){
         List<Board> boards = boardRepository.findAll();
         return boards;
@@ -77,5 +73,9 @@ public class BoardService {
         boardCreateRes.setBoardId(newBoardId);
 
         return boardCreateRes;
+    }
+
+    public void deleteBoard(Long boardId) {
+        boardRepository.deleteById(boardId);
     }
 }
