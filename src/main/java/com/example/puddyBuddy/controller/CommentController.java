@@ -45,4 +45,11 @@ public class CommentController {
         }
     }
 
+    @Operation(summary = "댓글 삭제", description = "게시글에서 해당 댓글을 삭제했습니다.")
+    @GetMapping("/delete/{commentId}")
+    public String deleteComment(@PathVariable Long commentId){
+        commentService.deleteComment(commentId);
+        return "redirect:/comments";
+    }
+
 }
