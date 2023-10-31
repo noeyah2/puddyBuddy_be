@@ -1,7 +1,8 @@
 package com.example.puddyBuddy.controller;
 
 import com.example.puddyBuddy.domain.Prefer;
-import com.example.puddyBuddy.dto.PreferDTO;
+import com.example.puddyBuddy.dto.prefer.PreferDTO;
+
 import com.example.puddyBuddy.service.PreferService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
