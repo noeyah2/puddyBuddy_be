@@ -1,8 +1,8 @@
 package com.example.puddyBuddy.service;
 
-
 import com.example.puddyBuddy.domain.Comment;
 import com.example.puddyBuddy.repository.CommentRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class CommentService {
     }
 
     public List<Comment> getComments(){
-        List<Comment> objs = userRepository.findAll();
-        return objs;
+        List<Comment> comments = userRepository.findAll();
+        return comments;
     }
 }
