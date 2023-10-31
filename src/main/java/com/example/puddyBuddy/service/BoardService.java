@@ -5,6 +5,7 @@ import com.example.puddyBuddy.domain.Clothes;
 import com.example.puddyBuddy.domain.Prefer;
 import com.example.puddyBuddy.domain.User;
 import com.example.puddyBuddy.dto.board.BoardCreateRes;
+import com.example.puddyBuddy.dto.board.BoardRes;
 import com.example.puddyBuddy.repository.BoardRepository;
 import com.example.puddyBuddy.repository.ClothesRepository;
 import com.example.puddyBuddy.repository.PreferRepository;
@@ -32,7 +33,6 @@ public class BoardService {
     }
 
     public BoardCreateRes createBoard(Long userId, Long preferId, Long clothesId, String content, String photoUrl) {
-//        Board savedBoard = boardRepository.save(board);
         Board newBoard = new Board(); // 새로운 Board 객체
         BoardCreateRes boardCreateRes = new BoardCreateRes();// 반환해줄 값
 
@@ -77,5 +77,11 @@ public class BoardService {
 
     public void deleteBoard(Long boardId) {
         boardRepository.deleteById(boardId);
+    }
+
+    public BoardRes getBoardOne(Long boardId) {
+        Board board = boardRepository.findByBoardId(boardId).orElseThrow(() -> new BusinessException(ErrorCode.EMPTY_DATA));
+        BoardRes response = new BoardRes(board);
+        return response;
     }
 }
