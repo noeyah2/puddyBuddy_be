@@ -1,10 +1,8 @@
 package com.example.puddyBuddy.service;
 
 import com.example.puddyBuddy.domain.Prefer;
-<<<<<<< HEAD
-=======
 import com.example.puddyBuddy.dto.prefer.PreferDTO;
->>>>>>> origin/dev
+
 import com.example.puddyBuddy.repository.PreferRepository;
 import org.springframework.stereotype.Service;
 
