@@ -51,5 +51,4 @@ public class CommentController {
         commentService.deleteComment(commentId);
         return "redirect:/comments";
     }
-
 }
