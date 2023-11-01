@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
-@Schema(title = "게시글 상세 조회")
+@Schema(title = "게시글 상세 조회 DTO response")
 public class BoardRes {
     public BoardRes (Board board) {
         this.userId = board.getUser().getUserId();
