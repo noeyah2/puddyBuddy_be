@@ -53,7 +53,7 @@ public class BoardController {
         return "redirect:/boards";
 //        return new RedirectView("/boards");
     }
-    @Operation(summary = "게시글 상세 조회", description = "게시글을 하나씩 불러옵니다.")
+    @Operation(summary = "게시글 상세 조회", description = "게시글 번호를 주면 그 게시글을 하나 불러옵니다.")
     @GetMapping("/{boardId}")
     public BoardRes getBoard(@PathVariable Long boardId){
         return boardService.getBoardOne(boardId);

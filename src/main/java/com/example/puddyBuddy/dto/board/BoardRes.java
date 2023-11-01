@@ -13,12 +13,16 @@ import java.time.format.DateTimeFormatter;
 public class BoardRes {
     public BoardRes (Board board) {
         this.userId = board.getUser().getUserId();
+        this.boardId = board.getBoardId();
         this.preferId = board.getPrefer().getPreferId();
         this.clothesId = board.getClothes().getClothesId();
         this.content = board.getContent();
         this.create_date = board.getCreateDate().format((DateTimeFormatter.ofPattern("YYYY-MM-dd")));
         this.photoUrl = board.getPhotoUrl();
     }
+    @Schema(description = "게시글 번호", example = "1")
+    private Long boardId;
+
     @Schema(description = "사용자 번호", example = "1")
     private Long userId;
 
