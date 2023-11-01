@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RestController
@@ -30,9 +31,16 @@ public class BoardController {
 
     @Operation(summary = "게시글 전부 보기")
     @GetMapping
-    public @ResponseBody List<Board> getBoards() {
-        List<Board> boards = boardService.getBoards();
-        return boards;
+    public BaseResponse<List<BoardListRes>>getBoards() {
+        try {
+            List<Board> boards = boardService.getBoards();
+            List<BoardListRes> boardList = boards.stream()
+                    .map(BoardListRes::new) // BoardListRes 생성자를 이용하여 변환
+                    .collect(Collectors.toList());
+            return new BaseResponse<>(boardList);
+        } catch(BusinessException e) {
+            return new BaseResponse<>(e.getErrorCode());
+        }
     }
 
     @Operation(summary = "게시글 등록", description = "게시글에서 글을 등록했습니다.")
