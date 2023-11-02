@@ -1,35 +1,42 @@
 package com.example.puddyBuddy.controller;
 
-import com.example.puddyBuddy.domain.Prefer;
-import com.example.puddyBuddy.dto.prefer.PreferDTO;
+import com.example.puddyBuddy.domain.*;
+import com.example.puddyBuddy.dto.prefer.PreferRes;
 
+import com.fasterxml.jackson.databind.ser.Serializers;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+import com.example.puddyBuddy.response.BaseResponse;
 import com.example.puddyBuddy.service.PreferService;
+import com.example.puddyBuddy.exception.common.*;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 @RestController
 @RequestMapping( value = "/prefers",  produces = "application/json;charset=utf8")
+@Tag(name = "선호 조건 API")
 public class PreferController {
     private final PreferService preferService;
     public PreferController(PreferService preferService) {
         this.preferService = preferService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<PreferDTO>> getAllPreferDTOs() {
-        List<PreferDTO> result = preferService.getAllPreferDTOs();
-        return ResponseEntity.ok(result);
+    @Operation(summary = "선호조건 회원별로 보기", description = "회원 번호를 넘겨주면 그 회원이 가진 선호 조건 리스트를 보내드립니다.")
+    @GetMapping("/{userId}")
+    public BaseResponse<PreferRes> getPreferUser(@PathVariable Long userId){
+        try {
+            return new BaseResponse<PreferRes>(preferService.getPreferUser(userId));
+        } catch (BusinessException e) {
+            return new BaseResponse<>(e.getErrorCode());
+        }
     }
 
-    @GetMapping("/raw")
-    public ResponseEntity<List<Prefer>> getAllPrefers() {
-        List<Prefer> result = preferService.getPrefers();
-        return ResponseEntity.ok(result);
-    }
+//    @Operation(summary = "선호조건 등록")
+//    @PostMapping()
 }

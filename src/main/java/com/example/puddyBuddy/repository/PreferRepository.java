@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface PreferRepository extends JpaRepository<Prefer, Long> {
     List<Prefer> findAll();
-    Optional<Prefer> findByPreferId(Long preferId);
+    Optional<Prefer> findByPreferId(Long userId);
 }

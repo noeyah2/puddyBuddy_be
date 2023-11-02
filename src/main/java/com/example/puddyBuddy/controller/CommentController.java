@@ -19,7 +19,7 @@ import java.util.List;
 @Controller
 @RestController
 @RequestMapping( value = "/comments",  produces = "application/json;charset=utf8")
-@Tag(name = "댓글 api")
+@Tag(name = "댓글 API")
 public class CommentController {
     private final CommentService commentService;
 

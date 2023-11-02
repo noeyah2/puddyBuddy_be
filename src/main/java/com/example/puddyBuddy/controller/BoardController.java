@@ -8,12 +8,11 @@ import com.example.puddyBuddy.dto.board.*;
 import com.example.puddyBuddy.service.BoardService;
 import com.example.puddyBuddy.exception.common.*;
 import com.example.puddyBuddy.response.BaseResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -63,7 +62,14 @@ public class BoardController {
     }
     @Operation(summary = "게시글 상세 조회", description = "게시글 번호를 주면 그 게시글을 하나 불러옵니다.")
     @GetMapping("/{boardId}")
-    public BoardRes getBoard(@PathVariable Long boardId){
-        return boardService.getBoardOne(boardId);
+//    public BoardRes getBoard(@PathVariable Long boardId){
+//        return boardService.getBoardOne(boardId);
+//    }
+    public BaseResponse<BoardRes> getBoard(@PathVariable Long boardId){
+        try {
+            return new BaseResponse<>(boardService.getBoardOne(boardId));
+        } catch (BusinessException e) {
+            return new BaseResponse<>(e.getErrorCode());
+        }
     }
 }
