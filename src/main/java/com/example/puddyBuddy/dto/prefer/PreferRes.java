@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Schema(title = "선호조건 전체 조회 response")
+@Schema(title = "선호조건 회원별 조회 response")
 public class PreferRes {
     public PreferRes (Prefer prefer){
         this.preferId = prefer.getPreferId();

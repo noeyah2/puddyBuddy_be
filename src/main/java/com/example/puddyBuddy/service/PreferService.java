@@ -6,13 +6,10 @@ import com.example.puddyBuddy.exception.common.BusinessException;
 import com.example.puddyBuddy.exception.common.ErrorCode;
 import com.example.puddyBuddy.repository.PreferRepository;
 import com.example.puddyBuddy.repository.UserRepository;
-import com.example.puddyBuddy.response.BaseResponse;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,20 +24,6 @@ public class PreferService {
         return prefers;
     }
 
-//    public List<PreferListRes> getAllPrefers(){
-//        List<Prefer> prefers = preferRepository.findAll();
-//        List<PreferListRes> dtos = prefers.stream()
-//                .map(PreferListRes::toPreferDTO)
-//                .collect(Collectors.toList());
-//        return dtos;
-//    }
-
-//    public PreferRes getPreferUser(Long userId) {
-//        Prefer prefer = preferRepository.findByUserId(userId).orElseThrow(() -> new BusinessException(ErrorCode.EMPTY_DATA));
-//        PreferRes response = new PreferRes(prefer);
-//        return response;
-//    }
-
     public List<PreferRes> getPreferUser(Long userId) {
         List<Prefer> prefers = preferRepository.findByUserUserIdOrderByPreferIdAsc(userId);
         if(prefers.isEmpty()){
@@ -52,11 +35,3 @@ public class PreferService {
         return response;
     }
 }
-
-//    public List<PreferRes> getPreferUser(Long userId) {
-////        List<Prefer> prefers = preferRepository.findByUserId(userId);
-////        List<PreferRes> preferResList = prefers.stream()
-////                .map(PreferRes::new)
-////                .collect(Collectors.toList());
-////        return preferResList;
-//    }

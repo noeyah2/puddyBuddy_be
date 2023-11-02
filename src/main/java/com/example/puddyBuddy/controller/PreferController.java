@@ -1,9 +1,7 @@
 package com.example.puddyBuddy.controller;
 
-import com.example.puddyBuddy.domain.*;
 import com.example.puddyBuddy.dto.prefer.PreferRes;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -11,12 +9,10 @@ import com.example.puddyBuddy.response.BaseResponse;
 import com.example.puddyBuddy.service.PreferService;
 import com.example.puddyBuddy.exception.common.*;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RestController
@@ -32,10 +28,6 @@ public class PreferController {
     @GetMapping("/{userId}")
     public BaseResponse<List<PreferRes>> getPreferUser(@PathVariable Long userId){
         try {
-//            List<Prefer> prefers = preferService.getPreferUser(userId);
-//            List<PreferRes> preferResList = prefers.stream()
-//                    .map(PreferRes::new)
-//                    .collect(Collectors.toList());
             List<PreferRes> preferResList = preferService.getPreferUser(userId);
             return new BaseResponse<>(preferResList);
         } catch (BusinessException e) {
