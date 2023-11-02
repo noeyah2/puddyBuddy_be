@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RestController
@@ -29,9 +30,14 @@ public class PreferController {
 
     @Operation(summary = "선호조건 회원별로 보기", description = "회원 번호를 넘겨주면 그 회원이 가진 선호 조건 리스트를 보내드립니다.")
     @GetMapping("/{userId}")
-    public BaseResponse<PreferRes> getPreferUser(@PathVariable Long userId){
+    public BaseResponse<List<PreferRes>> getPreferUser(@PathVariable Long userId){
         try {
-            return new BaseResponse<PreferRes>(preferService.getPreferUser(userId));
+//            List<Prefer> prefers = preferService.getPreferUser(userId);
+//            List<PreferRes> preferResList = prefers.stream()
+//                    .map(PreferRes::new)
+//                    .collect(Collectors.toList());
+            List<PreferRes> preferResList = preferService.getPreferUser(userId);
+            return new BaseResponse<>(preferResList);
         } catch (BusinessException e) {
             return new BaseResponse<>(e.getErrorCode());
         }

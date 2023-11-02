@@ -33,45 +33,36 @@ public class BoardService {
     }
 
     public BoardCreateRes createBoard(Long userId, Long preferId, Long clothesId, String content, String photoUrl) {
-        Board newBoard = new Board(); // 새로운 Board 객체
-        BoardCreateRes boardCreateRes = new BoardCreateRes();// 반환해줄 값
+        Board newBoard = new Board();
+        BoardCreateRes boardCreateRes = new BoardCreateRes();
 
         // user
         Optional<User> user = userRepository.findByUserId(userId);
-
         if(user.isEmpty()){
             throw new BusinessException(ErrorCode.NO_EXIST_USER);
         }
-        // User 객체 불러와서 user 채워주기
         newBoard.setUser(user.get());
 
         // prefer
         Optional<Prefer> prefer = preferRepository.findByPreferId(preferId);
-
         if(prefer.isEmpty()){
             throw new BusinessException(ErrorCode.NO_EXIST_PREFERCODE);
         }
-
-        // Prefer 객체 repo에서 불러와서 prefer 채워주기
         newBoard.setPrefer(prefer.get());
 
         //clothes
         Optional<Clothes> clothes = clothesRepository.findByClothesId(clothesId);
-
         if(clothes.isEmpty()){
             throw new BusinessException(ErrorCode.NO_EXIST_CLOTHESCODE);
         }
-        // Clothes 객체 repo에서 불러와서 clothes 채워주기
         newBoard.setClothes(clothes.get());
 
-        // content
+        // etc
         newBoard.setContent(content);
         newBoard.setPhotoUrl(photoUrl);
 
         Long newBoardId = boardRepository.save(newBoard).getBoardId();
-
         boardCreateRes.setBoardId(newBoardId);
-
         return boardCreateRes;
     }
 
