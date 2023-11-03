@@ -47,4 +47,11 @@ public class PreferController {
             return new BaseResponse<>(e.getErrorCode());
         }
     }
+
+    @Operation(summary = "선호조건 삭제", description = "해당 선호조건을 삭제했습니다.")
+    @GetMapping("/delete/{preferId}")
+    public String deletePrefer(@PathVariable Long preferId){
+        preferService.deletePrefer(preferId);
+        return "redirect:/prefers";
+    }
 }

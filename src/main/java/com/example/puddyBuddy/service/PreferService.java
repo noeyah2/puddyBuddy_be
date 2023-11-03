@@ -77,4 +77,9 @@ public class PreferService {
 
         return preferCreateRes;
     }
+
+
+    public void deletePrefer(Long preferId) {
+        preferRepository.deleteById(preferId);
+    }
 }
