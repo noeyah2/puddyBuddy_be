@@ -5,6 +5,7 @@ import com.example.puddyBuddy.domain.BreedTag;
 import com.example.puddyBuddy.dto.board.BoardListRes;
 import com.example.puddyBuddy.dto.board.BoardRes;
 import com.example.puddyBuddy.dto.breedtag.BreedTagListRes;
+import com.example.puddyBuddy.dto.breedtag.BreedTagRes;
 import com.example.puddyBuddy.exception.common.BusinessException;
 import com.example.puddyBuddy.response.BaseResponse;
 import com.example.puddyBuddy.service.BreedTagService;
@@ -46,9 +47,9 @@ public class BreedTagController {
 
     @Operation(summary = "견종 상세 조회", description = "견종 번호를 주면 그 견종에 대한 정보를 불러옵니다.")
     @GetMapping("/{breedTagId}")
-    public BaseResponse<BoardRes> getBoard(@PathVariable Long boardId){
+    public BaseResponse<BreedTagRes> getBreedTagOne(@PathVariable Long breedTagId){
         try {
-            return new BaseResponse<>(boardService.getBoardOne(boardId));
+            return new BaseResponse<>(breedTagService.getBreedTagOne(breedTagId));
         } catch (BusinessException e) {
             return new BaseResponse<>(e.getErrorCode());
         }
