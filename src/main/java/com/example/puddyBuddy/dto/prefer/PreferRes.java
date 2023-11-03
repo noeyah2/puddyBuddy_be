@@ -19,7 +19,7 @@ public class PreferRes {
         this.back = prefer.getBack();
     }
 
-    @Schema(description = "선호 번호", example = "1")
+    @Schema(description = "선호 조건 번호", example = "1")
     private long preferId;
 
     @Schema(description = "사용자 번호", example = "1")

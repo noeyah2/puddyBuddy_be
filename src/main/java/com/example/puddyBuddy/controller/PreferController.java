@@ -1,5 +1,7 @@
 package com.example.puddyBuddy.controller;
 
+import com.example.puddyBuddy.dto.prefer.PreferCreateReq;
+import com.example.puddyBuddy.dto.prefer.PreferCreateRes;
 import com.example.puddyBuddy.dto.prefer.PreferRes;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,6 +37,14 @@ public class PreferController {
         }
     }
 
-//    @Operation(summary = "선호조건 등록")
-//    @PostMapping()
+    @Operation(summary = "선호조건 등록", description = "회원이 선호조건을 등록했습니다.")
+    @PostMapping("/create/{userId}")
+    public BaseResponse<PreferCreateRes> createPrefer(@RequestBody PreferCreateReq preferInsertReq){
+        try {
+            PreferCreateRes preferInsertRes = preferService.createPrefer(preferInsertReq.getUserId(), preferInsertReq.getPreferName(), preferInsertReq.getChest(), preferInsertReq.getBack(), preferInsertReq.getPersonalColorId(), preferInsertReq.getBreedTagId());
+            return new BaseResponse<>(preferInsertRes);
+        } catch (BusinessException e){
+            return new BaseResponse<>(e.getErrorCode());
+        }
+    }
 }
