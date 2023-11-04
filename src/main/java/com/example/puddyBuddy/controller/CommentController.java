@@ -4,8 +4,10 @@ import com.example.puddyBuddy.domain.Board;
 import com.example.puddyBuddy.domain.Comment;
 import com.example.puddyBuddy.dto.board.BoardCreateReq;
 import com.example.puddyBuddy.dto.board.BoardCreateRes;
+import com.example.puddyBuddy.dto.board.BoardListRes;
 import com.example.puddyBuddy.dto.comment.CommentCreateReq;
 import com.example.puddyBuddy.dto.comment.CommentCreateRes;
+import com.example.puddyBuddy.dto.comment.CommentListRes;
 import com.example.puddyBuddy.exception.common.BusinessException;
 import com.example.puddyBuddy.response.BaseResponse;
 import com.example.puddyBuddy.service.CommentService;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RestController
@@ -29,9 +32,20 @@ public class CommentController {
 
     @Operation(summary = "댓글 전부 보기")
     @GetMapping
-    public @ResponseBody List<Comment> getComments() {
-        List<Comment> Comments = commentService.getComments();
-        return Comments;
+//    public @ResponseBody List<Comment> getComments() {
+//        List<Comment> Comments = commentService.getComments();
+//        return Comments;
+//    }
+    public BaseResponse<List<CommentListRes>>getBoards() {
+        try {
+            List<Comment> comments = commentService.getComments();
+            List<CommentListRes> commentList = comments.stream()
+                    .map(CommentListRes::new)
+                    .collect(Collectors.toList());
+            return new BaseResponse<>(commentList);
+        } catch(BusinessException e) {
+            return new BaseResponse<>(e.getErrorCode());
+        }
     }
 
     @Operation(summary = "댓글 등록", description = "해당 게시글에 댓글을 등록했습니다.")
