@@ -30,7 +30,7 @@ public class CommentController {
         this.commentService = commentService;
     }
 
-    @Operation(summary = "댓글 전부 보기")
+    @Operation(summary = "댓글 전체 목록")
     @GetMapping
     public BaseResponse<List<CommentListRes>>getBoards() {
         try {
