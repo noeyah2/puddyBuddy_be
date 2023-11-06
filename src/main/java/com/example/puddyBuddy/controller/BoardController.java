@@ -28,7 +28,7 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @Operation(summary = "게시글 전부 목록")
+    @Operation(summary = "게시글 전체 목록")
     @GetMapping
     public BaseResponse<List<BoardListRes>>getBoards() {
         try {
@@ -58,8 +58,8 @@ public class BoardController {
     public String deleteBoard(@PathVariable Long boardId){
         boardService.deleteBoard(boardId);
         return "redirect:/boards";
-//        return new RedirectView("/boards");
     }
+
     @Operation(summary = "게시글 상세 조회", description = "게시글 번호를 주면 그 게시글을 하나 불러옵니다.")
     @GetMapping("/{boardId}")
     public BaseResponse<BoardRes> getBoard(@PathVariable Long boardId){

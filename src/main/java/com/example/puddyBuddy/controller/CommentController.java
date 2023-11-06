@@ -2,7 +2,9 @@ package com.example.puddyBuddy.controller;
 
 import com.example.puddyBuddy.domain.Board;
 import com.example.puddyBuddy.domain.Comment;
-import com.example.puddyBuddy.domain.User;
+import com.example.puddyBuddy.dto.board.BoardCreateReq;
+import com.example.puddyBuddy.dto.board.BoardCreateRes;
+import com.example.puddyBuddy.dto.board.BoardListRes;
 import com.example.puddyBuddy.dto.comment.CommentCreateReq;
 import com.example.puddyBuddy.dto.comment.CommentCreateRes;
 import com.example.puddyBuddy.dto.comment.CommentListRes;
@@ -30,7 +32,7 @@ public class CommentController {
 
     @Operation(summary = "댓글 전체 목록")
     @GetMapping
-    public BaseResponse<List<CommentListRes>> getUsers() {
+    public BaseResponse<List<CommentListRes>>getBoards() {
         try {
             List<Comment> comments = commentService.getComments();
             List<CommentListRes> commentList = comments.stream()

@@ -34,5 +34,4 @@ public class Prefer {
 
         @Column(name = "back")
         private Float back;
-
 }
