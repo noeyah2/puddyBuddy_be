@@ -62,9 +62,6 @@ public class BoardController {
     }
     @Operation(summary = "게시글 상세 조회", description = "게시글 번호를 주면 그 게시글을 하나 불러옵니다.")
     @GetMapping("/{boardId}")
-//    public BoardRes getBoard(@PathVariable Long boardId){
-//        return boardService.getBoardOne(boardId);
-//    }
     public BaseResponse<BoardRes> getBoard(@PathVariable Long boardId){
         try {
             return new BaseResponse<>(boardService.getBoardOne(boardId));

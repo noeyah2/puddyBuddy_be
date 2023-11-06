@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Schema(title = "게시글 등록 DTO request")
+@Schema(title = "게시글 등록 request")
 public class BoardCreateReq {
     @Schema(description = "사용자 번호", example = "1")
     private Long userId;

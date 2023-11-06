@@ -7,9 +7,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Schema(title = "회원 전체 목록 조회 response")
-public class UserListRes {
-    public UserListRes (User user) {
+@Schema(title = "회원 상세 조회 response")
+public class UserRes {
+    public UserRes (User user) {
         this.userId = user.getUserId();
         this.nickname = user.getNickname();
         this.email = user.getEmail();
