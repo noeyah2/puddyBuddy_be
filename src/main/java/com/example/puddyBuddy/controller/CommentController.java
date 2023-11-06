@@ -32,10 +32,6 @@ public class CommentController {
 
     @Operation(summary = "댓글 전부 보기")
     @GetMapping
-//    public @ResponseBody List<Comment> getComments() {
-//        List<Comment> Comments = commentService.getComments();
-//        return Comments;
-//    }
     public BaseResponse<List<CommentListRes>>getBoards() {
         try {
             List<Comment> comments = commentService.getComments();

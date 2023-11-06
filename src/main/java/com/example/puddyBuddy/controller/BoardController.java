@@ -28,7 +28,7 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @Operation(summary = "게시글 전부 보기")
+    @Operation(summary = "게시글 전체 목록")
     @GetMapping
     public BaseResponse<List<BoardListRes>>getBoards() {
         try {
