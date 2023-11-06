@@ -1,15 +1,15 @@
 package com.example.puddyBuddy.controller;
 
 import com.example.puddyBuddy.domain.User;
-import com.example.puddyBuddy.dto.board.BoardRes;
 import com.example.puddyBuddy.dto.user.UserListRes;
 import com.example.puddyBuddy.dto.user.UserRes;
 import com.example.puddyBuddy.exception.common.BusinessException;
 import com.example.puddyBuddy.response.BaseResponse;
+
 import com.example.puddyBuddy.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.Getter;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
