@@ -24,8 +24,8 @@ public class CommentService {
     private final UserRepository userRepository;
 
 
-    public List<Comment> getComments(){
-        List<Comment> comments = commentRepository.findAll();
+    public List<Comment> getCommentsByBoardIdAndUserId(Long boardId, Long userId) {
+        List<Comment> comments = commentRepository.findByBoard_BoardIdAndUser_UserId(boardId, userId);
         return comments;
     }
 

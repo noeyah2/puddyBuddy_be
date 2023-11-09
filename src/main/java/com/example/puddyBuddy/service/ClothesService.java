@@ -2,20 +2,18 @@ package com.example.puddyBuddy.service;
 
 import com.example.puddyBuddy.domain.Clothes;
 import com.example.puddyBuddy.repository.ClothesRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ClothesService {
-    private final ClothesRepository userRepository;
-
-    public ClothesService(ClothesRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final ClothesRepository clothesRepository;
 
     public List<Clothes> getClothess(){
-        List<Clothes> objs = userRepository.findAll();
-        return objs;
+        List<Clothes> clothes = clothesRepository.findAll();
+        return clothes;
     }
 }
