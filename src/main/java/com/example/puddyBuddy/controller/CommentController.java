@@ -28,10 +28,10 @@ public class CommentController {
     }
 
     @Operation(summary = "댓글 전체 목록")
-    @GetMapping
-    public BaseResponse<List<CommentListRes>>getComments() {
+    @GetMapping("/{boardId}/{userId}")
+    public BaseResponse<List<CommentListRes>>getComments(@PathVariable Long userId, @PathVariable Long boardId) {
         try {
-            List<Comment> comments = commentService.getComments();
+            List<Comment> comments = commentService.getCommentsByBoardIdAndUserId(boardId,userId);
             List<CommentListRes> commentList = comments.stream()
                     .map(CommentListRes::new)
                     .collect(Collectors.toList());
