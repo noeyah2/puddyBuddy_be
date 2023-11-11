@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Schema(title = "댓글 등록 request ")
+@Schema(title = "댓글 등록 request")
 public class CommentCreateReq {
     @Schema(description = "게시판 번호", example = "1")
     private Long boardId;

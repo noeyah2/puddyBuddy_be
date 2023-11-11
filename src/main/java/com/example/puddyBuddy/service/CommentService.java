@@ -51,6 +51,9 @@ public class CommentService {
 
         newComment.setUser(user.get());
 
+        Long newCommentId = commentRepository.save(newComment).getCommentId();
+        commentCreateRes.setCommentId(newCommentId);
+
         return commentCreateRes;
     }
 
