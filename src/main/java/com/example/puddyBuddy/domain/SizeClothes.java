@@ -13,4 +13,12 @@ import java.io.Serializable;
 public class SizeClothes {
     @EmbeddedId
     private SizeClothesId id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "size_id", insertable = false, updatable = false)
+    private Size size;
+
+    @ManyToOne
+    @JoinColumn(name = "clothes_id", insertable = false, updatable = false)
+    private Clothes clothes;
 }
