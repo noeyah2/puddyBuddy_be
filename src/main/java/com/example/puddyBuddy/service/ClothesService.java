@@ -12,7 +12,7 @@ import java.util.List;
 public class ClothesService {
     private final ClothesRepository clothesRepository;
 
-    public List<Clothes> getClothess(){
+    public List<Clothes> getClothesALL() {
         List<Clothes> clothes = clothesRepository.findAll();
         return clothes;
     }
