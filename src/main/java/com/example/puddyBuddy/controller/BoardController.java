@@ -1,5 +1,7 @@
 package com.example.puddyBuddy.controller;
 
+import com.example.puddyBuddy.dto.clothes.ClothesListRes;
+import com.example.puddyBuddy.repository.BoardRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -9,11 +11,15 @@ import com.example.puddyBuddy.service.BoardService;
 import com.example.puddyBuddy.exception.common.*;
 import com.example.puddyBuddy.response.BaseResponse;
 
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,17 +30,20 @@ import java.util.stream.Collectors;
 public class BoardController {
     private final BoardService boardService;
 
-    public BoardController(BoardService boardService) {
+    private final BoardRepository boardRepository;
+
+    public BoardController(BoardService boardService, BoardRepository boardRepository) {
         this.boardService = boardService;
+        this.boardRepository = boardRepository;
     }
 
     @Operation(summary = "게시글 전체 목록")
-    @GetMapping
+    @GetMapping("/all")
     public BaseResponse<List<BoardListRes>>getBoards() {
         try {
             List<Board> boards = boardService.getBoards();
             List<BoardListRes> boardList = boards.stream()
-                    .map(BoardListRes::new) // BoardListRes 생성자를 이용하여 변환
+                    .map(BoardListRes::new)
                     .collect(Collectors.toList());
             return new BaseResponse<>(boardList);
         } catch(BusinessException e) {
@@ -70,14 +79,35 @@ public class BoardController {
         }
     }
 
-    @Operation(summary = "회원별 게시글 상세 조회", description = "회원 번호를 주면 그 게시글을 하나 불러옵니다.")
-    @GetMapping("/{userId}")
-    public BaseResponse<BoardRes> getUserBoard(@PathVariable Long userId){
+    @Operation(summary = "회원별 의류별 게시글 조회", description = "회원 번호 또는 상품 번호를 주면 그 게시글 리스트들을 불러옵니다. 만약 아무것도 주지 않는다면 전체 목록")
+    @GetMapping()
+    public BaseResponse<List<BoardListRes>> getUserBoard(
+            @RequestParam(name = "user_id", required = false) Long userId,
+            @RequestParam(name = "clothes_id", required = false, defaultValue = "-1") Long clothesId
+    ){
         try {
-            return new BaseResponse<>(boardService.getBoardUser(userId));
+            Specification<Board> spec = (root, query, criteriaBuilder) -> {
+                List<Predicate> predicates = new ArrayList<>();
+
+                if (userId != null) {
+                    predicates.add(criteriaBuilder.equal(root.get("user").get("userId"), userId));
+                }
+
+                if (clothesId != null && clothesId != -1) {
+                    predicates.add(criteriaBuilder.equal(root.get("clothes").get("clothesId"), clothesId));
+                }
+
+                return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+            };
+
+            List<Board> boards = boardRepository.findAll(spec);
+            List<BoardListRes> boardList = boards.stream()
+                    .map(BoardListRes::new)
+                    .collect(Collectors.toList());
+
+            return new BaseResponse<>(boardList);
         } catch (BusinessException e) {
             return new BaseResponse<>(e.getErrorCode());
         }
     }
-
 }

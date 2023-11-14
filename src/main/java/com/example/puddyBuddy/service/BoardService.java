@@ -78,10 +78,10 @@ public class BoardService {
         return response;
     }
 
-    public BoardRes getBoardUser(Long userId) {
-        Board board = (Board) boardRepository.findByUserUserId(userId).orElseThrow(() -> new BusinessException(ErrorCode.EMPTY_DATA));
-        BoardRes response = new BoardRes(board);
-
-        return response;
-    }
+//    public BoardRes getUserBoard(Long userId) {
+//        Board board = (Board) boardRepository.findByUserUserId(userId).orElseThrow(() -> new BusinessException(ErrorCode.EMPTY_DATA));
+//        BoardRes response = new BoardRes(board);
+//
+//        return response;
+//    }
 }
