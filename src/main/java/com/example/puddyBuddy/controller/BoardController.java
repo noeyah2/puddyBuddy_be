@@ -58,4 +58,15 @@ public class BoardController {
     public BoardRes getBoard(@PathVariable Long boardId){
         return boardService.getBoardOne(boardId);
     }
+
+    @Operation(summary = "회원별 게시글 상세 조회", description = "회원 번호를 주면 그 게시글을 하나 불러옵니다.")
+    @GetMapping("/{userId}")
+    public BaseResponse<BoardRes> getUserBoard(@PathVariable Long userId){
+        try {
+            return new BaseResponse<>(boardService.getBoardUser(userId));
+        } catch (BusinessException e) {
+            return new BaseResponse<>(e.getErrorCode());
+        }
+    }
+
 }
