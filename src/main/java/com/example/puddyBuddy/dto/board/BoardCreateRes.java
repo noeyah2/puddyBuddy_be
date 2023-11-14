@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Schema(title = "게시글 등록 reponse")
+@Schema(title = "게시글 등록 response")
 public class BoardCreateRes {
     @Schema(description = "게시판 번호", example = "1")
     private Long boardId;

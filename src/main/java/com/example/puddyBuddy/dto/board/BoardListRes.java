@@ -9,9 +9,9 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
-@Schema(title = "게시글 상세 조회 DTO response")
-public class BoardRes {
-    public BoardRes (Board board) {
+@Schema(title = "게시글 전체 목록 조회 response")
+public class BoardListRes {
+    public BoardListRes (Board board) {
         this.userId = board.getUser().getUserId();
         this.boardId = board.getBoardId();
         this.preferId = board.getPrefer().getPreferId();

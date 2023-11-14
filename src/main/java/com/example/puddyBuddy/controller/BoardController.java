@@ -8,14 +8,14 @@ import com.example.puddyBuddy.dto.board.*;
 import com.example.puddyBuddy.service.BoardService;
 import com.example.puddyBuddy.exception.common.*;
 import com.example.puddyBuddy.response.BaseResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RestController
@@ -28,11 +28,18 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    @Operation(summary = "게시글 전부 보기")
+    @Operation(summary = "게시글 전체 목록")
     @GetMapping
-    public @ResponseBody List<Board> getBoards() {
-        List<Board> boards = boardService.getBoards();
-        return boards;
+    public BaseResponse<List<BoardListRes>>getBoards() {
+        try {
+            List<Board> boards = boardService.getBoards();
+            List<BoardListRes> boardList = boards.stream()
+                    .map(BoardListRes::new) // BoardListRes 생성자를 이용하여 변환
+                    .collect(Collectors.toList());
+            return new BaseResponse<>(boardList);
+        } catch(BusinessException e) {
+            return new BaseResponse<>(e.getErrorCode());
+        }
     }
 
     @Operation(summary = "게시글 등록", description = "게시글에서 글을 등록했습니다.")
@@ -51,12 +58,16 @@ public class BoardController {
     public String deleteBoard(@PathVariable Long boardId){
         boardService.deleteBoard(boardId);
         return "redirect:/boards";
-//        return new RedirectView("/boards");
     }
-    @Operation(summary = "게시글 상세 조회", description = "게시글을 하나씩 불러옵니다.")
+
+    @Operation(summary = "게시글 상세 조회", description = "게시글 번호를 주면 그 게시글을 하나 불러옵니다.")
     @GetMapping("/{boardId}")
-    public BoardRes getBoard(@PathVariable Long boardId){
-        return boardService.getBoardOne(boardId);
+    public BaseResponse<BoardRes> getBoard(@PathVariable Long boardId){
+        try {
+            return new BaseResponse<>(boardService.getBoardOne(boardId));
+        } catch (BusinessException e) {
+            return new BaseResponse<>(e.getErrorCode());
+        }
     }
 
     @Operation(summary = "회원별 게시글 상세 조회", description = "회원 번호를 주면 그 게시글을 하나 불러옵니다.")
