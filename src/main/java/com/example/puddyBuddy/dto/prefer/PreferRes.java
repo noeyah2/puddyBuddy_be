@@ -13,6 +13,7 @@ public class PreferRes {
         this.preferId = prefer.getPreferId();
         this.userId = prefer.getUser().getUserId();
         this.breedTagId = prefer.getBreedTag().getBreedTagId();
+        this.breedTagName = prefer.getBreedTag().getBreedTagName();
         this.personalColorId = prefer.getPersonalColor().getPersonalColorId();
         this.name = prefer.getName();
         this.chest = prefer.getChest();
@@ -27,6 +28,9 @@ public class PreferRes {
 
     @Schema(description = "견종 번호", example = "1")
     private long breedTagId;
+
+    @Schema(description = "견종 이름", example = "푸들")
+    private String breedTagName;
 
     @Schema(description = "퍼스널 컬러 번호", example = "1")
     private long personalColorId;

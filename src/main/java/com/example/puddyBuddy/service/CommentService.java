@@ -11,6 +11,7 @@ import com.example.puddyBuddy.repository.CommentRepository;
 import com.example.puddyBuddy.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +26,8 @@ public class CommentService {
 
 
     public List<Comment> getCommentsByBoardId(Long boardId) {
-        List<Comment> comments = commentRepository.findByBoard_BoardId(boardId);
+        Sort sort = Sort.by(Sort.Direction.DESC, "createDate");
+        List<Comment> comments = commentRepository.findByBoard_BoardId(boardId, sort);
         return comments;
     }
 
