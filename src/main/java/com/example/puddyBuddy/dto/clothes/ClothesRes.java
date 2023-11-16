@@ -13,6 +13,7 @@ public class ClothesRes {
     public ClothesRes (Clothes clothes) {
         this.clothesId = clothes.getClothesId();
         this.storeId = clothes.getStore().getStoreId();
+        this.storeName = clothes.getStore().getStoreName();
         this.name = clothes.getName();
         this.content = clothes.getContent();
         this.color = clothes.getColor().getName();
@@ -24,6 +25,9 @@ public class ClothesRes {
 
     @Schema(description = "상점 번호", example = "1")
     private Long storeId;
+
+    @Schema(description = "상점 이름", example = "MLB")
+    private String storeName;
 
     @Schema(description = "의류 이름", example = "하늘하늘한 원피스")
     private String name;
