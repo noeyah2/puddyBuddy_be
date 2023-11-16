@@ -2,6 +2,7 @@ package com.example.puddyBuddy.controller;
 
 import com.example.puddyBuddy.domain.Clothes;
 import com.example.puddyBuddy.dto.clothes.ClothesListRes;
+import com.example.puddyBuddy.dto.clothes.ClothesRes;
 import com.example.puddyBuddy.repository.ClothesRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -13,10 +14,7 @@ import com.example.puddyBuddy.response.BaseResponse;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +35,7 @@ public class ClothesController {
 
     @Operation(summary = "의류 검색")
     @GetMapping("/search")
-    public BaseResponse<List<ClothesListRes>> getClothes(
+    public BaseResponse<List<ClothesListRes>> getClothesALL(
             @RequestParam(name = "color_id", required = false, defaultValue = "-1") Long colorId,
             @RequestParam(name = "sizeClothes_id", required = false, defaultValue = "-1") Long sizeClothesId,
             @RequestParam(name = "personalcolor_id", required = false) Long personalColorId,
@@ -69,6 +67,15 @@ public class ClothesController {
                     .collect(Collectors.toList());
 
             return new BaseResponse<>(clothesList);
+        } catch (BusinessException e) {
+            return new BaseResponse<>(e.getErrorCode());
+        }
+    }
+    @Operation(summary = "게시판에 입력된 의류 정보 불러오기")
+    @GetMapping("/{clothesId}")
+    public BaseResponse<ClothesRes> getClothes(@PathVariable Long clothesId){
+        try {
+            return new BaseResponse<>(clothesService.getClothesOne(clothesId));
         } catch (BusinessException e) {
             return new BaseResponse<>(e.getErrorCode());
         }
