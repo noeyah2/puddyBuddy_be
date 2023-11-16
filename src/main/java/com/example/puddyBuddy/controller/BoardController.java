@@ -82,14 +82,14 @@ public class BoardController {
     @Operation(summary = "회원별 의류별 게시글 조회", description = "회원 번호 또는 상품 번호를 주면 그 게시글 리스트들을 불러옵니다. 만약 아무것도 주지 않는다면 전체 목록")
     @GetMapping()
     public BaseResponse<List<BoardListRes>> getUserBoard(
-            @RequestParam(name = "user_id", required = false) Long userId,
+            @RequestParam(name = "user_id", required = false, defaultValue = "-1") Long userId,
             @RequestParam(name = "clothes_id", required = false, defaultValue = "-1") Long clothesId
     ){
         try {
             Specification<Board> spec = (root, query, criteriaBuilder) -> {
                 List<Predicate> predicates = new ArrayList<>();
 
-                if (userId != null) {
+                if (userId != null && userId != -1) {
                     predicates.add(criteriaBuilder.equal(root.get("user").get("userId"), userId));
                 }
 
