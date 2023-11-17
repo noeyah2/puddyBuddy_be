@@ -12,6 +12,7 @@ import com.example.puddyBuddy.repository.PreferRepository;
 import com.example.puddyBuddy.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.puddyBuddy.exception.common.*;
@@ -28,7 +29,8 @@ public class BoardService {
     private final ClothesRepository clothesRepository;
 
     public List<Board> getBoards(){
-        List<Board> boards = boardRepository.findAll();
+        Sort sort = Sort.by(Sort.Direction.DESC, "createDate");
+        List<Board> boards = boardRepository.findAll(sort);
         return boards;
     }
 
