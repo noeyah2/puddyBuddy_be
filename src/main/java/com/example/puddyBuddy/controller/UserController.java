@@ -26,18 +26,6 @@ public class UserController {
         this.userService = userService;
     }
 
-//    @Operation(summary = "프론트에게서 회원 번호 받아서 확인")
-//    @PostMapping("/login/valid")
-//    public BaseResponse<LoginRes> login(@RequestBody LoginReq loginReq) {
-//        try {
-//            JSONParser jsonParser = new JSONParser();
-//            LoginRes loginRes = UserService.login(data, response);
-//            return BaseResponse.ok(loginRes);
-//        } catch (BusinessException e) {
-//            return new BaseResponse<>(e.getErrorCode());
-//        }
-//    }
-
     @Operation(summary = "회원 전체 목록")
     @GetMapping
     public BaseResponse<List<UserListRes>> getUsers() {
@@ -57,6 +45,16 @@ public class UserController {
     public BaseResponse<UserRes> getUser(@PathVariable Long userId){
         try {
             return new BaseResponse<>(userService.getUserOne(userId));
+        } catch (BusinessException e) {
+            return new BaseResponse<>(e.getErrorCode());
+        }
+    }
+    @Operation(summary = "이메일로 회원 존재 여부 확인")
+    @GetMapping("/exists")
+    public BaseResponse<Boolean> checkUserByEmail(@RequestParam(name = "email") String email) {
+        try {
+            boolean userExists = userService.checkUserByEmail(email);
+            return new BaseResponse<>(userExists);
         } catch (BusinessException e) {
             return new BaseResponse<>(e.getErrorCode());
         }

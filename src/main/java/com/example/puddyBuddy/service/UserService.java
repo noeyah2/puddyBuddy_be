@@ -27,4 +27,8 @@ public class UserService {
         UserRes response = new UserRes(user);
         return response;
     }
+
+    public boolean checkUserByEmail(String email) {
+        return userRepository.findByEmail(email).isPresent();
+    }
 }
