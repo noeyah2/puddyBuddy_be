@@ -12,5 +12,4 @@ public interface PreferRepository extends JpaRepository<Prefer, Long> {
     Optional<Prefer> findByPreferId(Long preferId);
     List<Prefer> findByUserUserIdOrderByPreferIdAsc(Long userId);
 
-
 }
