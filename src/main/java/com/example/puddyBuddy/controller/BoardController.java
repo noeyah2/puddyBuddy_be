@@ -100,7 +100,8 @@ public class BoardController {
                 return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
             };
 
-            List<Board> boards = boardRepository.findAll(spec);
+            Sort sort = Sort.by(Sort.Direction.DESC, "createDate");
+            List<Board> boards = boardRepository.findAll(spec, sort);
             List<BoardListRes> boardList = boards.stream()
                     .map(BoardListRes::new)
                     .collect(Collectors.toList());
