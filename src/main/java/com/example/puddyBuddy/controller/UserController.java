@@ -9,12 +9,8 @@ import com.example.puddyBuddy.response.BaseResponse;
 import com.example.puddyBuddy.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,11 +40,21 @@ public class UserController {
         }
     }
 
-    @Operation(summary = "회원 전체 목록")
+    @Operation(summary = "회원 정보 조회")
     @GetMapping("/{userId}")
     public BaseResponse<UserRes> getUser(@PathVariable Long userId){
         try {
             return new BaseResponse<>(userService.getUserOne(userId));
+        } catch (BusinessException e) {
+            return new BaseResponse<>(e.getErrorCode());
+        }
+    }
+    @Operation(summary = "이메일로 회원 존재 여부 확인")
+    @GetMapping("/exists")
+    public BaseResponse<Boolean> checkUserByEmail(@RequestParam(name = "email") String email) {
+        try {
+            boolean userExists = userService.checkUserByEmail(email);
+            return new BaseResponse<>(userExists);
         } catch (BusinessException e) {
             return new BaseResponse<>(e.getErrorCode());
         }
