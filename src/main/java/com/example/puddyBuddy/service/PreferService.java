@@ -5,6 +5,7 @@ import com.example.puddyBuddy.domain.PersonalColor;
 import com.example.puddyBuddy.domain.Prefer;
 import com.example.puddyBuddy.domain.User;
 import com.example.puddyBuddy.dto.prefer.PreferCreateRes;
+import com.example.puddyBuddy.dto.prefer.PreferNumRes;
 import com.example.puddyBuddy.dto.prefer.PreferRes;
 import com.example.puddyBuddy.exception.common.BusinessException;
 import com.example.puddyBuddy.exception.common.ErrorCode;
@@ -38,6 +39,17 @@ public class PreferService {
         }
         List<PreferRes> response = prefers.stream()
                 .map(PreferRes::new)
+                .collect(Collectors.toList());
+        return response;
+    }
+
+    public List<PreferNumRes> getPreferId(Long preferId) {
+        Optional<Prefer> prefers = preferRepository.findByPreferId(preferId);
+        if(prefers.isEmpty()){
+            throw new BusinessException(ErrorCode.EMPTY_DATA);
+        }
+        List<PreferNumRes> response = prefers.stream()
+                .map(PreferNumRes::new)
                 .collect(Collectors.toList());
         return response;
     }
