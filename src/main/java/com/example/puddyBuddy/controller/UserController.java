@@ -1,7 +1,6 @@
 package com.example.puddyBuddy.controller;
 
 import com.example.puddyBuddy.domain.User;
-import com.example.puddyBuddy.dto.board.BoardRes;
 import com.example.puddyBuddy.dto.user.UserListRes;
 import com.example.puddyBuddy.dto.user.UserRes;
 import com.example.puddyBuddy.exception.common.BusinessException;
@@ -9,12 +8,8 @@ import com.example.puddyBuddy.response.BaseResponse;
 import com.example.puddyBuddy.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.Getter;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +25,18 @@ public class UserController {
         this.userService = userService;
     }
 
+//    @Operation(summary = "프론트에게서 회원 번호 받아서 확인")
+//    @PostMapping("/login/valid")
+//    public BaseResponse<LoginRes> login(@RequestBody LoginReq loginReq) {
+//        try {
+//            JSONParser jsonParser = new JSONParser();
+//            LoginRes loginRes = UserService.login(data, response);
+//            return BaseResponse.ok(loginRes);
+//        } catch (BusinessException e) {
+//            return new BaseResponse<>(e.getErrorCode());
+//        }
+//    }
+
     @Operation(summary = "회원 전체 목록")
     @GetMapping
     public BaseResponse<List<UserListRes>> getUsers() {
@@ -44,7 +51,7 @@ public class UserController {
         }
     }
 
-    @Operation(summary = "회원 전체 목록")
+    @Operation(summary = "회원 정보 조회")
     @GetMapping("/{userId}")
     public BaseResponse<UserRes> getUser(@PathVariable Long userId){
         try {
