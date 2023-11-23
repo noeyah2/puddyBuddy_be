@@ -10,12 +10,13 @@ import com.example.puddyBuddy.repository.BoardRepository;
 import com.example.puddyBuddy.repository.ClothesRepository;
 import com.example.puddyBuddy.repository.PreferRepository;
 import com.example.puddyBuddy.repository.UserRepository;
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.puddyBuddy.exception.common.*;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,8 @@ public class BoardService {
     private final ClothesRepository clothesRepository;
 
     public List<Board> getBoards(){
-        List<Board> boards = boardRepository.findAll();
+        Sort sort = Sort.by(Sort.Direction.DESC, "createDate");
+        List<Board> boards = boardRepository.findAll(sort);
         return boards;
     }
 
@@ -63,6 +65,7 @@ public class BoardService {
 
         Long newBoardId = boardRepository.save(newBoard).getBoardId();
         boardCreateRes.setBoardId(newBoardId);
+
         return boardCreateRes;
     }
 
@@ -73,6 +76,14 @@ public class BoardService {
     public BoardRes getBoardOne(Long boardId) {
         Board board = boardRepository.findByBoardId(boardId).orElseThrow(() -> new BusinessException(ErrorCode.EMPTY_DATA));
         BoardRes response = new BoardRes(board);
+
         return response;
     }
+
+//    public BoardRes getUserBoard(Long userId) {
+//        Board board = (Board) boardRepository.findByUserUserId(userId).orElseThrow(() -> new BusinessException(ErrorCode.EMPTY_DATA));
+//        BoardRes response = new BoardRes(board);
+//
+//        return response;
+//    }
 }

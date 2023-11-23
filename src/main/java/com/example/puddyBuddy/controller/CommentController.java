@@ -1,8 +1,7 @@
 package com.example.puddyBuddy.controller;
 
-import com.example.puddyBuddy.domain.Board;
 import com.example.puddyBuddy.domain.Comment;
-import com.example.puddyBuddy.domain.User;
+
 import com.example.puddyBuddy.dto.comment.CommentCreateReq;
 import com.example.puddyBuddy.dto.comment.CommentCreateRes;
 import com.example.puddyBuddy.dto.comment.CommentListRes;
@@ -29,10 +28,10 @@ public class CommentController {
     }
 
     @Operation(summary = "댓글 전체 목록")
-    @GetMapping
-    public BaseResponse<List<CommentListRes>> getUsers() {
+    @GetMapping("/{boardId}")
+    public BaseResponse<List<CommentListRes>>getComments(@PathVariable Long boardId) {
         try {
-            List<Comment> comments = commentService.getComments();
+            List<Comment> comments = commentService.getCommentsByBoardId(boardId);
             List<CommentListRes> commentList = comments.stream()
                     .map(CommentListRes::new)
                     .collect(Collectors.toList());

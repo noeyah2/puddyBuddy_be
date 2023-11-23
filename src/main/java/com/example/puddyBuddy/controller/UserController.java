@@ -5,6 +5,7 @@ import com.example.puddyBuddy.dto.user.UserListRes;
 import com.example.puddyBuddy.dto.user.UserRes;
 import com.example.puddyBuddy.exception.common.BusinessException;
 import com.example.puddyBuddy.response.BaseResponse;
+
 import com.example.puddyBuddy.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
