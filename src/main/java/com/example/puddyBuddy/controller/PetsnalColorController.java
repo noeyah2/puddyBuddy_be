@@ -37,7 +37,7 @@ public class PetsnalColorController {
     @PostMapping("/{stage}")
     public BaseResponse<PetsnalColorRes> doTest(@PathVariable int stage, @RequestBody PetsnalColorReq petsnalColorReq){
         try {
-
+            PetsnalColorRes res = petsnalColorService.doTest(stage, petsnalColorReq.getPreferId(), petsnalColorReq.getResultList());
             return new BaseResponse<>(null);
         } catch (BusinessException e) {
             return new BaseResponse<>(e.getErrorCode());

@@ -1,8 +1,11 @@
 package com.example.puddyBuddy.service;
 
+import com.example.puddyBuddy.dto.PetsnalColor.PetsnalColorRes;
 import com.example.puddyBuddy.dto.PetsnalColor.PetsnalColorStartRes;
 import com.example.puddyBuddy.repository.PetsnalColorRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class PetsnalColorService {
@@ -18,6 +21,16 @@ public class PetsnalColorService {
 
         PetsnalColorStartRes res = new PetsnalColorStartRes();
         res.setResult(true);
+        return res;
+    }
+
+    public PetsnalColorRes doTest(int stage,Long PreferId, List<Integer> resultList){
+        // 결과 분석
+
+
+        PetsnalColorRes res = new PetsnalColorRes();
+        // nest stage, photo_url_list, result 세팅
+        // nest stage, photo_url_list, result 세팅
         return res;
     }
 }
