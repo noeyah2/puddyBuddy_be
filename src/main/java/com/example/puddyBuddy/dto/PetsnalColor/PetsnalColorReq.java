@@ -13,6 +13,6 @@ public class PetsnalColorReq {
     @Schema(description = "선호 조건 번호", example = "1")
     private Long preferId;
 
-    @Schema(description = "결과 값 리스트", example = "[1, 0, ..., 1, 2]")
+    @Schema(description = "결과 값 리스트", example = "[1, 0, 1, 2]")
     private List<Integer> resultList;
 }
