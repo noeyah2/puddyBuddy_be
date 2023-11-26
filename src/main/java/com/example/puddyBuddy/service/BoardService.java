@@ -12,6 +12,8 @@ import com.example.puddyBuddy.repository.PreferRepository;
 import com.example.puddyBuddy.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +30,16 @@ public class BoardService {
     private final PreferRepository preferRepository;
     private final ClothesRepository clothesRepository;
 
-    public List<Board> getBoards(){
-        Sort sort = Sort.by(Sort.Direction.DESC, "createDate");
-        List<Board> boards = boardRepository.findAll(sort);
-        return boards;
+//    public List<Board> getBoards(){
+//        Sort sort = Sort.by(Sort.Direction.DESC, "createDate");
+//        List<Board> boards = boardRepository.findAll(sort);
+//        return boards;
+//    }
+
+    public Page<Board> getBoards(Pageable pageable) {
+        return boardRepository.findAll(pageable);
     }
+
 
     public BoardCreateRes createBoard(Long userId, Long preferId, Long clothesId, String content, String photoUrl) {
         Board newBoard = new Board();

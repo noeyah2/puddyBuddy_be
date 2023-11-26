@@ -12,6 +12,9 @@ import com.example.puddyBuddy.exception.common.*;
 import com.example.puddyBuddy.response.BaseResponse;
 
 import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
@@ -37,16 +40,19 @@ public class BoardController {
         this.boardRepository = boardRepository;
     }
 
-    @Operation(summary = "게시글 전체 목록")
     @GetMapping("/all")
-    public BaseResponse<List<BoardListRes>>getBoards() {
+    public BaseResponse<List<BoardListRes>> getBoards(@RequestParam(name = "page", defaultValue = "0") int page,
+                                                      @RequestParam(name = "size", defaultValue = "10") int size) {
         try {
-            List<Board> boards = boardService.getBoards();
-            List<BoardListRes> boardList = boards.stream()
+            Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createDate"));
+            Page<Board> boardPage = boardService.getBoards(pageable);
+
+            List<BoardListRes> boardList = boardPage.getContent().stream()
                     .map(BoardListRes::new)
                     .collect(Collectors.toList());
-            return new BaseResponse<>(boardList);
-        } catch(BusinessException e) {
+
+            return new BaseResponse<>(boardList, boardPage.getTotalElements());
+        } catch (BusinessException e) {
             return new BaseResponse<>(e.getErrorCode());
         }
     }
