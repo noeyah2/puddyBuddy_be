@@ -22,6 +22,7 @@ public class ClothesPhoto {
 
         @Column(name = "photo2_url")
         private String photo2_url;
+
         @Column(name = "photo3_url")
         private String photo3_url;
 

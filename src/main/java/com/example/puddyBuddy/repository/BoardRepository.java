@@ -13,5 +13,4 @@ public interface BoardRepository extends JpaRepository<Board, Long>, JpaSpecific
     List<Board> findAll(Sort sort);
     Optional<Board> findByBoardId(Long boardId);
 
-//    Optional<Object> findByUserUserId(Long userId);
 }

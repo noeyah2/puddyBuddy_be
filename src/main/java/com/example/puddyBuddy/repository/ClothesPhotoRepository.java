@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface ClothesPhotoRepository extends JpaRepository<ClothesPhoto, Long> {
     List<ClothesPhoto> findAll();
+
+    ClothesPhoto findByClothes_ClothesId(Long clothesId);
 }
 
