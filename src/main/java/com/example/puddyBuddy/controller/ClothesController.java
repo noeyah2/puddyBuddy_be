@@ -39,7 +39,7 @@ public class ClothesController {
             @RequestParam(name = "color_id", required = false, defaultValue = "-1") Long colorId,
             @RequestParam(name = "sizeClothes_id", required = false, defaultValue = "-1") Long sizeClothesId,
             @RequestParam(name = "personalcolor_id", required = false, defaultValue = "-1") Long personalColorId,
-            @RequestParam(name = "store_id", required = false, defaultValue = "-1") Long storeId
+            @RequestParam(name = "store_id", required = false) Long storeId
     ) {
         try {
             Specification<Clothes> spec = (root, query, criteriaBuilder) -> {
