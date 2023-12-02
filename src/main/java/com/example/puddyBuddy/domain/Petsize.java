@@ -12,7 +12,7 @@ public class Petsize {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pet_size_id")
-    private Long petSizeId;
+    private Long petsizeId;
 
     @ManyToOne
     @JoinColumn(name = "prefer_id")

@@ -4,6 +4,7 @@ import com.example.puddyBuddy.domain.BreedTag;
 import com.example.puddyBuddy.domain.PersonalColor;
 import com.example.puddyBuddy.domain.Prefer;
 import com.example.puddyBuddy.domain.User;
+import com.example.puddyBuddy.domain.Petsize;
 import com.example.puddyBuddy.dto.prefer.PreferCreateRes;
 import com.example.puddyBuddy.dto.prefer.PreferNumRes;
 import com.example.puddyBuddy.dto.prefer.PreferRes;
@@ -25,12 +26,13 @@ public class PreferService {
     private final UserRepository userRepository;
     private final PersonalColorRepository personalColorRepository;
     private final BreedTagRepository breedTagRepository;
+    private final PetsizeRepository petsizeRepository;
 
 
-    public List<Prefer> getPrefers(){
-        List<Prefer> prefers = preferRepository.findAll();
-        return prefers;
-    }
+//    public List<Prefer> getPrefers(){
+//        List<Prefer> prefers = preferRepository.findAll();
+//        return prefers;
+//    }
 
     public List<PreferRes> getPreferUser(Long userId) {
         List<Prefer> prefers = preferRepository.findByUserUserIdOrderByPreferIdAsc(userId);
@@ -54,7 +56,7 @@ public class PreferService {
         return response;
     }
 
-    public PreferCreateRes createPrefer(Long userId,String preferName, float chest, float back, long personalColorId, long breedTagId) {
+    public PreferCreateRes createPrefer(Long userId,String preferName, long personalColorId, long breedTagId, long petsizeId) {
         Prefer newPrefer = new Prefer();
         PreferCreateRes preferCreateRes = new PreferCreateRes();
 
@@ -79,10 +81,15 @@ public class PreferService {
         }
         newPrefer.setBreedTag(breedTag.get());
 
+        // petsize
+        Optional<Petsize> petsize = petsizeRepository.findByPetsizeId(petsizeId);
+        if(petsize.isEmpty()){
+            throw new BusinessException(ErrorCode.NO_EXIST_PETSIZECODE);
+        }
+        newPrefer.setPetsize(petsize.get());
+
         // etc
         newPrefer.setName(preferName);
-        newPrefer.setChest(chest);
-        newPrefer.setBack(back);
 
         Long newPreferId = preferRepository.save(newPrefer).getPreferId();
         preferCreateRes.setPreferId(newPreferId);

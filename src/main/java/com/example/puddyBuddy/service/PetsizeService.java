@@ -7,19 +7,20 @@ import com.example.puddyBuddy.exception.common.BusinessException;
 import com.example.puddyBuddy.exception.common.ErrorCode;
 import com.example.puddyBuddy.repository.PetsizeRepository;
 import com.example.puddyBuddy.repository.PreferRepository;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@RequiredArgsConstructor
 @Service
 public class PetsizeService {
     private final PetsizeRepository petsizeRepository;
     private final PreferRepository preferRepository;
 
-    public PetsizeService(PetsizeRepository petsizeRepository){
+    public PetsizeService(PetsizeRepository petsizeRepository, PreferRepository preferRepository) {
         this.petsizeRepository = petsizeRepository;
+        this.preferRepository = preferRepository;
     }
 
     public PetsizeCreateRes createSize(Long preferId, Float neck, Float chest, Float back, Float leg){
@@ -40,7 +41,7 @@ public class PetsizeService {
         newPetsize.setBack(back);
         newPetsize.setLeg(leg);
 
-        Long newPetsizeId = petsizeRepository.save(newPetsize).getPetSizeId();
+        Long newPetsizeId = petsizeRepository.save(newPetsize).getPetsizeId();
         petsizeCreateRes.setPetsizeId(newPetsizeId);
 
         return petsizeCreateRes;

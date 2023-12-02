@@ -53,7 +53,7 @@ public class PreferController {
     @PostMapping("/create/{userId}")
     public BaseResponse<PreferCreateRes> createPrefer(@RequestBody PreferCreateReq preferInsertReq){
         try {
-            PreferCreateRes preferInsertRes = preferService.createPrefer(preferInsertReq.getUserId(), preferInsertReq.getPreferName(), preferInsertReq.getChest(), preferInsertReq.getBack(), preferInsertReq.getPersonalColorId(), preferInsertReq.getBreedTagId());
+            PreferCreateRes preferInsertRes = preferService.createPrefer(preferInsertReq.getUserId(), preferInsertReq.getPreferName(), preferInsertReq.getPersonalColorId(), preferInsertReq.getBreedTagId(), preferInsertReq.getPetsizeId());
             return new BaseResponse<>(preferInsertRes);
         } catch (BusinessException e){
             return new BaseResponse<>(e.getErrorCode());
