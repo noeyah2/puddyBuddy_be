@@ -18,12 +18,15 @@ public class Petsize {
     @JoinColumn(name = "prefer_id")
     private Prefer prefer;
 
-    @Column(name = "back-length")
-    private Float back;
+    @Column(name = "neck-size")
+    private Float neck;
 
     @Column(name = "chest-size")
     private Float chest;
 
-    @Column(name = "photo_url")
-    private String photoUrl;
+    @Column(name = "back-length")
+    private Float back;
+
+    @Column(name = "leg-size")
+    private Float leg;
 }
