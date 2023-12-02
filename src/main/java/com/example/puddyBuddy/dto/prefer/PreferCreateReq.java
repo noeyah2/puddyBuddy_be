@@ -19,7 +19,4 @@ public class PreferCreateReq {
 
     @Schema(description = "견종 번호", example = "1")
     private long breedTagId;
-
-    @Schema(description = "사이즈 번호", example = "1")
-    private long petsizeId;
 }

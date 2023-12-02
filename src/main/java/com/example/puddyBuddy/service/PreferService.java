@@ -56,7 +56,7 @@ public class PreferService {
         return response;
     }
 
-    public PreferCreateRes createPrefer(Long userId,String preferName, long personalColorId, long breedTagId, long petsizeId) {
+    public PreferCreateRes createPrefer(Long userId, String preferName, long personalColorId, long breedTagId) {
         Prefer newPrefer = new Prefer();
         PreferCreateRes preferCreateRes = new PreferCreateRes();
 
@@ -82,11 +82,16 @@ public class PreferService {
         newPrefer.setBreedTag(breedTag.get());
 
         // petsize
-        Optional<Petsize> petsize = petsizeRepository.findByPetsizeId(petsizeId);
-        if(petsize.isEmpty()){
-            throw new BusinessException(ErrorCode.NO_EXIST_PETSIZECODE);
-        }
-        newPrefer.setPetsize(petsize.get());
+        Petsize petsize = new Petsize();
+        petsize.setNeck(0.0f);
+        petsize.setChest(0.0f);
+        petsize.setBack(0.0f);
+        petsize.setLeg(0.0f);
+//        Optional<Petsize> petsize = petsizeRepository.findByPetsizeId(petsizeId);
+//        if(petsize.isEmpty()){
+//            throw new BusinessException(ErrorCode.NO_EXIST_PETSIZECODE);
+//        }
+//        newPrefer.setPetsize(petsize.get());
 
         // etc
         newPrefer.setName(preferName);
