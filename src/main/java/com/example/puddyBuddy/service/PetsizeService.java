@@ -9,6 +9,7 @@ import com.example.puddyBuddy.repository.PetsizeRepository;
 import com.example.puddyBuddy.repository.PreferRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -18,19 +19,20 @@ public class PetsizeService {
     private final PetsizeRepository petsizeRepository;
     private final PreferRepository preferRepository;
 
+    @Autowired
     public PetsizeService(PetsizeRepository petsizeRepository, PreferRepository preferRepository) {
         this.petsizeRepository = petsizeRepository;
         this.preferRepository = preferRepository;
     }
 
-    public PetsizeCreateRes createSize(Long preferId, Float neck, Float chest, Float back, Float leg){
+    public PetsizeCreateRes createSize(Long preferId, Float neck, Float chest, Float back, Float leg) {
         Petsize newPetsize = new Petsize();
         PetsizeCreateRes petsizeCreateRes = new PetsizeCreateRes();
 
         // prefer
         Optional<Prefer> prefer = preferRepository.findByPreferId(preferId);
 
-        if(prefer.isEmpty()){
+        if (prefer.isEmpty()) {
             throw new BusinessException(ErrorCode.EMPTY_DATA);
         }
         newPetsize.setPrefer(prefer.get());
