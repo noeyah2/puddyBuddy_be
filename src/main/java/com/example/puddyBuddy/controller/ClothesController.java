@@ -51,7 +51,7 @@ public class ClothesController {
                 if (sizeClothesId != null && sizeClothesId != -1) {
                     predicates.add(criteriaBuilder.equal(root.get("sizeClothesId"), sizeClothesId));
                 }
-                if (personalColorId != null) {
+                if (personalColorId != null && personalColorId != -1) {
                     predicates.add(criteriaBuilder.equal(root.get("personalColor").get("personalColorId"), personalColorId));
                 }
                 if (storeId != null) {
