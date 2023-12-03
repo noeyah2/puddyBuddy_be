@@ -20,7 +20,6 @@ public class SpringConfig {
     private final ClothesPhotoRepository clothesPhotoRepository;
     private final ArClothesRepository arClothesRepository;
     private final PetsnalColorRepository petsnalColorRepository;
-
     private final PetsizeRepository petsizeRepository;
 
     @Autowired

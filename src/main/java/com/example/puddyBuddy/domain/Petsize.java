@@ -11,12 +11,16 @@ import lombok.Setter;
 public class Petsize {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "petsize_id")
+    @Column(name = "pet_size_id")
     private Long petsizeId;
 
-    @ManyToOne
-    @JoinColumn(name = "prefer_id")
+    @OneToOne
+    @JoinColumn(name = "prefer_id", unique = true)
     private Prefer prefer;
+
+    @ManyToOne
+    @JoinColumn(name = "breed_tag_id")
+    private BreedTag breedTag;
 
     @Column(name = "neck-size")
     private Float neck;
