@@ -37,7 +37,7 @@ public class PetsizeController {
     }
 
     @Operation(summary = "펫 사이즈 정보 조회", description = "펫 사이즈 정보를 조회합니다.")
-    @PostMapping("/getPercentages")
+    @GetMapping("/getInfo")
     public BaseResponse<PetsizeInfoRes> getPercentages(@RequestBody PetsizeInfoReq petsizeInfoReq) {
         try {
             PetsizeInfoRes petsizeInfoRes = petsizeService.getPercentages(

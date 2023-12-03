@@ -11,14 +11,9 @@ import com.example.puddyBuddy.repository.BreedTagRepository;
 import com.example.puddyBuddy.repository.PetsizeRepository;
 import com.example.puddyBuddy.repository.PreferRepository;
 
-import com.opencsv.CSVReader;
-import com.opencsv.exceptions.CsvValidationException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Optional;
 import java.util.List;
 
