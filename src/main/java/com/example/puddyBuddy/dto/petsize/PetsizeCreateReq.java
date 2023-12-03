@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Schema(title = "펫사이즈 측정 request")
+@Schema(title = "펫사이즈 생성 request")
 public class PetsizeCreateReq {
     @Schema(description = "선호 조건 번호", example = "1")
     private Long preferId;

@@ -41,7 +41,7 @@ public enum ErrorCode {
     /*상품 관련 5000*/
 
 
-
+    public static ErrorCode CSV_PROCESSING_ERROR;
     private final boolean isSuccess;
     private final int code;
     private final String message;

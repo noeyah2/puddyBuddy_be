@@ -3,15 +3,20 @@ package com.example.puddyBuddy.service;
 import com.example.puddyBuddy.domain.Petsize;
 import com.example.puddyBuddy.domain.Prefer;
 import com.example.puddyBuddy.dto.petsize.PetsizeCreateRes;
+import com.example.puddyBuddy.dto.petsize.PetsizeInfoRes;
 import com.example.puddyBuddy.exception.common.BusinessException;
 import com.example.puddyBuddy.exception.common.ErrorCode;
 import com.example.puddyBuddy.repository.PetsizeRepository;
 import com.example.puddyBuddy.repository.PreferRepository;
 
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Optional;
 
 @Service
@@ -48,4 +53,16 @@ public class PetsizeService {
 
         return petsizeCreateRes;
     }
+//    public PetsizeInfoRes getAverageSize(String breedCode, long petsizeId) {
+//
+//    }
+//
+//    private int getIndex(String[] headers, String columnName) {
+//        for (int i = 0; i < headers.length; i++) {
+//            if (columnName.equalsIgnoreCase(headers[i])) {
+//                return i;
+//            }
+//        }
+//        return -1; // Return -1 if the column is not found
+//    }
 }

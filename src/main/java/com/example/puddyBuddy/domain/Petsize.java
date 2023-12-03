@@ -11,7 +11,7 @@ import lombok.Setter;
 public class Petsize {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pet_size_id")
+    @Column(name = "petsize_id")
     private Long petsizeId;
 
     @ManyToOne

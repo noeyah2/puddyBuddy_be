@@ -26,7 +26,7 @@ public class Prefer {
         @JoinColumn(name = "personal_color_id")
         private PersonalColor personalColor;
 
-        @OneToOne
+        @ManyToOne
         @JoinColumn(name = "petsize_id")
         private Petsize petsize;
 

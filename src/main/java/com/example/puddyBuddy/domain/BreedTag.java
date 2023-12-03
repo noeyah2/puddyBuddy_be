@@ -17,4 +17,6 @@ public class BreedTag {
         @Column(name = "breed_tag_name")
         private String breedTagName;
 
+        @Column(name = "breed_tag_code")
+        private String breedTagCode;
 }
