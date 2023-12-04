@@ -176,4 +176,53 @@ public class PetsnalColorService {
         connection.disconnect();
     }
 
+    public void saveTestImg(Long preferId, List<String> imgUrls) {
+        // 1. PreferId로 저장된 데이터 조회
+        List<PetsnalColor> existingData = petsnalColorRepository.findByPreferIdOrderByPetsnalColorIdAsc(preferId);
+
+        int existingDataSize = existingData.size();
+        int index = 0;
+
+        for (String imgUrl : imgUrls) {
+            PetsnalColor petsnalColor;
+
+            // 이미 저장된 값이 있으면 업데이트, 없으면 새로운 데이터 생성
+            if (index < existingDataSize) {
+                petsnalColor = existingData.get(index);
+                petsnalColor.setPhotoUrl(imgUrl);
+            } else {
+                petsnalColor = new PetsnalColor();
+                petsnalColor.setPrefer(preferRepository.findByPreferId(preferId).get()); // Assuming Prefer constructor exists
+                petsnalColor.setPhotoUrl(imgUrl);
+            }
+
+            // photo_id는 1씩 증가
+            petsnalColor.setPhotoId((long) (index + 1));
+
+            // photo_id에 따른 stageId 계산
+            Long stageId = determineStageId(petsnalColor.getPhotoId());
+            petsnalColor.setStageId(stageId);
+
+            // 저장 혹은 업데이트
+            petsnalColorRepository.save(petsnalColor);
+
+            index++;
+        }
+    }
+
+
+    private Long determineStageId(Long photoId) {
+        if (photoId >= 1 && photoId <= 8) {
+            return 1L;
+        } else if (photoId >= 9 && photoId <= 16) {
+            return 2L;
+        } else if (photoId >= 17 && photoId <= 24) {
+            return 3L;
+        } else if (photoId >= 25 && photoId <= 27) {
+            return 4L;
+        } else {
+            return null;
+        }
+    }
+
 }

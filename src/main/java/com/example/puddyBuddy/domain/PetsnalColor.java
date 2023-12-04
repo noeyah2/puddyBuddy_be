@@ -22,7 +22,7 @@ public class PetsnalColor {
     private Long stageId;
 
     @Column(name = "photo_id")
-    private Long photo_id;
+    private Long photoId;
 
     @Column(name = "photo_url")
     private String photoUrl;

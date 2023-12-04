@@ -13,4 +13,5 @@ public interface PetsnalColorRepository extends JpaRepository<PetsnalColor, Long
 
     List<PetsnalColor> findPhotoUrlByStageIdAndPrefer_PreferIdOrderByPetsnalColorIdAsc(Long stageId, Long preferId);
 
+    List<PetsnalColor> findByPreferIdOrderByPetsnalColorIdAsc(Long PreferId);
 }
