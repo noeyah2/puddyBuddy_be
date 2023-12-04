@@ -13,6 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+
 @Service
 public class PetsnalColorService {
     private final PetsnalColorRepository petsnalColorRepository;
@@ -26,9 +33,10 @@ public class PetsnalColorService {
         this.personalColorRepository = personalColorRepository;
     }
 
-    public PetsnalColorRes makePetsnalTest(Long preferId, String img){
+    public PetsnalColorRes makePetsnalTest(Long preferId, String img) throws IOException{
         // flask 서버로 요청
         // => preferid-img petsnalcolors db에 저장
+        sendGetRequest(img, preferId.toString());
 
         PetsnalColorRes res = new PetsnalColorRes();
         res.setNextStage(1);
@@ -139,6 +147,33 @@ public class PetsnalColorService {
         } else {
             throw new IllegalArgumentException("Invalid preferId or personalColorId");
         }
+    }
+
+    private static void sendGetRequest(String imageUrl, String preferId) throws IOException {
+        String url = "http://localhost:5000/petsnal_color";  // Flask 애플리케이션의 엔드포인트 URL
+
+        // URL 및 파라미터 설정
+        String params = "image_url=" + URLEncoder.encode(imageUrl, "UTF-8") + "&prefer_id=" + URLEncoder.encode(preferId, "UTF-8");
+        URL endpoint = new URL(url + "?" + params);
+
+        // HTTP 연결 설정
+        HttpURLConnection connection = (HttpURLConnection) endpoint.openConnection();
+        connection.setRequestMethod("GET");
+
+        // 응답 읽기
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            response.append(line);
+        }
+        reader.close();
+
+        // 응답 출력
+        System.out.println("Response: " + response.toString());
+
+        // 연결 닫기
+        connection.disconnect();
     }
 
 }

@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 
 @Controller
 @RestController
@@ -24,7 +26,7 @@ public class PetsnalColorController {
 
     @Operation(summary = "테스트 시작", description = "선호 조건과 사용할 사진을 주면 서버에서 테스트를 만들고 테스트를 제공합니다.")
     @PostMapping("/start")
-    public BaseResponse<PetsnalColorRes> makePetsnalTest(@RequestBody PetsnalColorStartReq petsnalColorStartReq){
+    public BaseResponse<PetsnalColorRes> makePetsnalTest(@RequestBody PetsnalColorStartReq petsnalColorStartReq) throws IOException {
         try {
             PetsnalColorRes res = petsnalColorService.makePetsnalTest(petsnalColorStartReq.getPreferId(), petsnalColorStartReq.getPhotoUrl());
             return new BaseResponse<>(res);
