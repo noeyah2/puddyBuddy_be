@@ -1,25 +1,29 @@
 package com.example.puddyBuddy.service;
 
+import com.example.puddyBuddy.domain.PersonalColor;
 import com.example.puddyBuddy.domain.PetsnalColor;
+import com.example.puddyBuddy.domain.Prefer;
 import com.example.puddyBuddy.dto.PetsnalColor.PetsnalColorRes;
-import com.example.puddyBuddy.dto.PetsnalColor.PetsnalColorStartRes;
+import com.example.puddyBuddy.repository.PersonalColorRepository;
 import com.example.puddyBuddy.repository.PetsnalColorRepository;
-import jakarta.persistence.Tuple;
+import com.example.puddyBuddy.repository.PreferRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class PetsnalColorService {
     private final PetsnalColorRepository petsnalColorRepository;
+    private final PreferRepository preferRepository;
 
-    public PetsnalColorService(PetsnalColorRepository petsnalColorRepository) {
+    private final PersonalColorRepository personalColorRepository;
+
+    public PetsnalColorService(PetsnalColorRepository petsnalColorRepository, PreferRepository preferRepository, PersonalColorRepository personalColorRepository) {
         this.petsnalColorRepository = petsnalColorRepository;
+        this.preferRepository = preferRepository;
+        this.personalColorRepository = personalColorRepository;
     }
 
     public PetsnalColorRes makePetsnalTest(Long preferId, String img){
@@ -58,18 +62,21 @@ public class PetsnalColorService {
                 res.setPhotoUrlList(list); // []
                 result = testResult(4, 2, resultList);
                 res.setResult(result); // winter, summer
+                saveTestResult(preferId, result);
                 break;
             case 4:
                 res.setNextStage(nextStage); // 0
                 res.setPhotoUrlList(list); // []
                 result = testLightResult(4, resultList);
                 res.setResult(result); // autumn, spring
+                saveTestResult(preferId, result);
                 break;
             case 5:
                 res.setNextStage(nextStage); // 0
                 res.setPhotoUrlList(list); // []
                 result = testLightResult(5, resultList);
-                res.setResult(result);
+                res.setResult(result); // autumn, spring
+                saveTestResult(preferId, result);
                 break;
             default:
                 break;
@@ -119,4 +126,19 @@ public class PetsnalColorService {
 
         return photos;
     }
+
+    private void saveTestResult(Long preferId, int result) {
+        Optional<Prefer> preferOptional = preferRepository.findByPreferId(preferId);
+        Optional<PersonalColor> pcOptional = personalColorRepository.findByPersonalColorId(result);
+
+        if (preferOptional.isPresent() && pcOptional.isPresent()) {
+            Prefer prefer = preferOptional.get();
+            PersonalColor pc = pcOptional.get();
+            prefer.setPersonalColor(pc);
+            preferRepository.save(prefer);
+        } else {
+            throw new IllegalArgumentException("Invalid preferId or personalColorId");
+        }
+    }
+
 }
