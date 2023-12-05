@@ -39,11 +39,25 @@ public class UserService {
     }
 
     public Long createNewUser(String email, String nickname) {
+        // 중복 이메일 체크
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new BusinessException(ErrorCode.DUPLICATE_EMAIL);
+        }
+        // 중복 닉네임 체크
+        if (userRepository.findByNickname(nickname).isPresent()) {
+            throw new BusinessException(ErrorCode.DUPLICATE_NICKNAME);
+        }
+        // 중복이 없으면 새로운 사용자 생성
         User newUser = new User();
         newUser.setEmail(email);
         newUser.setNickname(nickname);
 
         User savedUser = userRepository.save(newUser);
         return savedUser.getUserId();
+    }
+
+    public User getUserById(Long userId) {
+        return userRepository.findByUserId(userId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.EMPTY_DATA));
     }
 }

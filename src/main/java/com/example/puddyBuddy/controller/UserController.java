@@ -73,12 +73,16 @@ public class UserController {
 
     @Operation(summary = "새로운 회원인 경우 입력받은 이메일과 닉네임으로 회원 생성")
     @GetMapping("/newuser")
-    public BaseResponse<?> createNewUser(
+    public BaseResponse<UserRes> createNewUser(
             @RequestParam(name = "email") String email,
             @RequestParam(name = "nickname") String nickname) {
         try {
             Long userId = userService.createNewUser(email, nickname);
-            return new BaseResponse<>(userId);
+            // 생성된 회원 정보 조회
+            User createdUser = userService.getUserById(userId);
+            // UserRes 객체를 생성하여 반환
+            UserRes userRes = new UserRes(createdUser);
+            return new BaseResponse<>(userRes);
         } catch (BusinessException e) {
             return new BaseResponse<>(e.getErrorCode());
         }
