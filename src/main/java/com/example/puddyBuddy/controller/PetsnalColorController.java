@@ -47,7 +47,7 @@ public class PetsnalColorController {
     }
 
     @Operation(summary = "테스트 사진 저장", description = "flask에서 처리한 이미지 url 리스트를 받아 db에 저장합니다.")
-    @PostMapping("/saveTest")
+    @PostMapping("/saveTest/{preferId}")
     public BaseResponse<Boolean> saveTest(@PathVariable Long preferId, @RequestBody PetsnalTestImgReq petsnalTestImgReq){
         try {
             petsnalColorService.saveTestImg(preferId, petsnalTestImgReq.getImgUrls());

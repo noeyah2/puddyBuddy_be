@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface ArClothesRepository extends JpaRepository<ArClothes, Long> {
     List<ArClothes> findAll();
 
-    Optional<ArClothes> findByArClothesId();
+    Optional<ArClothes> findByArClothesId(Long clothesId);
 }
 

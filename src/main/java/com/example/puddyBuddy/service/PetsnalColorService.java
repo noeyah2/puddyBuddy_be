@@ -178,7 +178,7 @@ public class PetsnalColorService {
 
     public void saveTestImg(Long preferId, List<String> imgUrls) {
         // 1. PreferId로 저장된 데이터 조회
-        List<PetsnalColor> existingData = petsnalColorRepository.findByPreferIdOrderByPetsnalColorIdAsc(preferId);
+        List<PetsnalColor> existingData = petsnalColorRepository.findByPreferPreferIdOrderByPetsnalColorIdAsc(preferId);
 
         int existingDataSize = existingData.size();
         int index = 0;
