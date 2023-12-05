@@ -31,4 +31,7 @@ public class Prefer {
 
         @Column(name = "name")
         private String name;
+
+        @Column(name = "prefer_photo_url")
+        private String preferPhotoUrl;
 }

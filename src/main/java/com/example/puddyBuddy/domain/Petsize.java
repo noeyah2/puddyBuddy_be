@@ -22,15 +22,15 @@ public class Petsize {
     @JoinColumn(name = "breed_tag_id")
     private BreedTag breedTag;
 
-    @Column(name = "neck-size")
+    @Column(name = "neck_size")
     private Float neck;
 
-    @Column(name = "chest-size")
+    @Column(name = "chest_size")
     private Float chest;
 
-    @Column(name = "back-length")
+    @Column(name = "back_length")
     private Float back;
 
-    @Column(name = "leg-size")
+    @Column(name = "leg_size")
     private Float leg;
 }
