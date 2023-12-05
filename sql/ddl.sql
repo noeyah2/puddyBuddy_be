@@ -245,3 +245,33 @@ INSERT INTO `puddybuddy`.`clothes_photos` (`clothes_id`, `clothes_photo_id`, `ph
 INSERT INTO `puddybuddy`.`clothes_photos` (`clothes_id`, `clothes_photo_id`, `photo1_url`, `photo2_url`, `photo3_url`) VALUES ('96', '96', 'https://puddybuddybucket.s3.amazonaws.com/images/498f403d-ef63-43e0-962a-d7695fffa993_mlb%20%2876%29.jpg', 'https://puddybuddybucket.s3.amazonaws.com/images/f8f2c1f7-84ce-4009-b5cb-ef7bf08788b8_mlb%20%2877%29.jpg', 'https://puddybuddybucket.s3.amazonaws.com/images/e51b5071-0218-4f07-9f48-bb395b5ef473_mlb%20%2878%29.jpg');
 INSERT INTO `puddybuddy`.`clothes_photos` (`clothes_id`, `clothes_photo_id`, `photo1_url`, `photo2_url`, `photo3_url`) VALUES ('97', '97', 'https://puddybuddybucket.s3.amazonaws.com/images/71215254-5689-4d6a-80a4-fe6dede2ec64_mlb%20%2879%29.jpg', 'https://puddybuddybucket.s3.amazonaws.com/images/fdbaabec-f81f-4987-8800-6b987491bc2a_mlb%20%2880%29.jpg', 'https://puddybuddybucket.s3.amazonaws.com/images/6553c1a3-96b0-487f-9f96-2c2ef612ebff_mlb%20%2881%29.jpg');
 INSERT INTO `puddybuddy`.`clothes_photos` (`clothes_id`, `clothes_photo_id`, `photo1_url`, `photo2_url`, `photo3_url`) VALUES ('98', '98', 'https://puddybuddybucket.s3.amazonaws.com/images/9a2a31f2-b69f-4c0c-b596-8df17d4ce4c6_mlb%20%2882%29.jpg', 'https://puddybuddybucket.s3.amazonaws.com/images/4c7ceaf1-8c8f-41e7-8811-aaae157e77d4_mlb%20%2883%29.jpg', 'https://puddybuddybucket.s3.amazonaws.com/images/0d4e8e06-7eb4-458b-8203-cdd9cd84478a_mlb%20%2884%29.jpg');
+
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (1, '그레이트피레니즈', 'GRE');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (2, '닥스훈트 장모', 'DAL');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (3, '닥스훈트 단모', 'DAS');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (4, '도베르만 핀셔', 'DOB');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (5, '래브라도리트리버', 'LAB');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (6, '몰티즈', 'MAL');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (7, '봉독', 'BUL');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (8, '비글', 'BEA');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (9, '비숑프리제', 'BIC');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (10, '쉽독', 'SHE');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (11, '슈나우저', 'SCH');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (12, '시추', 'DRI');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (13, '웰시코기', 'WEL');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (14, '저먼셰퍼드', 'GER');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (15, '진도', 'JIN');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (16, '치와와장모', 'CHL');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (17, '치와와단모', 'CHS');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (18, '코커스패니엘', 'COC');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (19, '테리어', 'TER');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (20, '포메라니안', 'POM');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (21, '푸들', 'POO');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (22, '하운드', 'HOU');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (23, '허스키', 'HUS');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (24, '말라뮤트', 'MUT');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (25, '골든리트리버', 'GOL');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (26, '믹스 장모', 'MIL');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (27, '믹스 단모', 'MIS');
+INSERT INTO breed_tags (breed_tag_id, breed_tag_name, breed_tag_code) VALUES (28, '기타', 'ETC');
+

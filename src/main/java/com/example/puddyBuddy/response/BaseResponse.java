@@ -35,9 +35,4 @@ public class BaseResponse<T> {
         this.message = errorCode.getMessage();
         this.code = errorCode.getCode();
     }
-
-    // testcase 용
-    public T getData() {
-        return result;
-    }
 }
