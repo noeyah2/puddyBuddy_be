@@ -59,4 +59,15 @@ public class UserController {
             return new BaseResponse<>(e.getErrorCode());
         }
     }
+
+    @Operation(summary = "로그인시 user id 프론트에게 전달")
+    @GetMapping("/success")
+    public BaseResponse<UserRes> giveUser(@RequestParam(name = "email") String email) {
+        try {
+            Long userId = userService.getUserIdByEmail(email);
+            return new BaseResponse<>(new UserRes(userId));
+        } catch (BusinessException e) {
+            return new BaseResponse<>(e.getErrorCode());
+        }
+    }
 }
