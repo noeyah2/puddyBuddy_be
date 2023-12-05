@@ -36,10 +36,12 @@ public enum ErrorCode {
     NO_EXIST_PERSONALCOLORCODE(false, 4006, "해당 퍼스널코드가 존재하지 않습니다."),
     NO_EXIST_BREEDTAGID(false, 4007, "해당 견종 코드가 존재하지 않습니다."),
     NO_EXIST_PETSIZECODE(false, 4008, "해당 사이즈 정보가 존재하지 않습니다."),
-    TIMEOUT_EXCEPTION(false, 4010, "문제를 생성하는데 시간이 오래 소요됩니다");
+    TIMEOUT_EXCEPTION(false, 4010, "문제를 생성하는데 시간이 오래 소요됩니다"),
+    DUPLICATE_EMAIL(false, 4011, "중복된 이메일은 사용할 수 없습니다."),
+    DUPLICATE_NICKNAME(false,4012,"중복된 닉네임은 사용할 수 없습니다.");
+
 
     /*상품 관련 5000*/
-
 
     public static ErrorCode CSV_PROCESSING_ERROR;
     private final boolean isSuccess;
