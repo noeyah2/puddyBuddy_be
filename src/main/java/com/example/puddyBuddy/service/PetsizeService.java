@@ -34,24 +34,35 @@ public class PetsizeService {
         Petsize newPetsize = new Petsize();
         PetsizeCreateRes petsizeCreateRes = new PetsizeCreateRes();
 
-        // prefer
-        Optional<Prefer> prefer = preferRepository.findByPreferId(preferId);
+        // Step 1: 선호조건 번호를 통해 견종 번호 및 Prefer 찾기
+        Prefer prefer = findPreferById(preferId);
+        BreedTag breedTag = prefer.getBreedTag();
 
-        if (prefer.isEmpty()) {
-            throw new BusinessException(ErrorCode.EMPTY_DATA);
-        }
-        newPetsize.setPrefer(prefer.get());
+        // Step 2: 찾은 견종 번호 및 Prefer를 새로운 펫 사이즈에 설정하기
+        newPetsize.setBreedTag(breedTag);
+        newPetsize.setPrefer(prefer);
 
-        // etc
+        // Step 3: 다른 속성들 설정하기
         newPetsize.setNeck(neck);
         newPetsize.setChest(chest);
         newPetsize.setBack(back);
         newPetsize.setLeg(leg);
 
+        // Step 4: 새로운 펫 사이즈 저장하기
         Long newPetsizeId = petsizeRepository.save(newPetsize).getPetsizeId();
         petsizeCreateRes.setPetsizeId(newPetsizeId);
 
         return petsizeCreateRes;
+    }
+
+    private Prefer findPreferById(Long preferId) {
+        Optional<Prefer> prefer = preferRepository.findByPreferId(preferId);
+
+        if (prefer.isEmpty()) {
+            throw new BusinessException(ErrorCode.EMPTY_DATA);
+        }
+
+        return prefer.get();
     }
 
     public PetsizeInfoRes getPercentages(long breedTagId, long petsizeId) {
@@ -124,11 +135,19 @@ public class PetsizeService {
     }
 
     private Float calculatePercentage(Float userValue, Float petValue) {
-        // Add your logic here to calculate the percentage
-        // You might want to handle cases where the petValue is 0 to avoid division by zero
+        // petValue가 사용 가능하고 0이 아닌지 확인합니다.
         if (petValue == null || petValue == 0) {
-            throw new BusinessException(ErrorCode.EMPTY_DATA);
+            throw new BusinessException(ErrorCode.INVALID_PET_SIZE);
         }
-        return (userValue / petValue) * 100;
+
+        // 백분율을 계산합니다.
+        float percentage = (userValue / petValue) * 100;
+
+        // 백분율이 유효한 범위 (0에서 100) 내에 있는지 확인합니다.
+        if (percentage < 0 || percentage > 100) {
+            throw new BusinessException(ErrorCode.INVALID_PERCENTAGE);
+        }
+
+        return percentage;
     }
 }

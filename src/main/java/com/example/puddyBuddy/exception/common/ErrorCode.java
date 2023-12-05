@@ -25,6 +25,8 @@ public enum ErrorCode {
     POST_ACCOUNTS_EMPTY_NAME(false, 3005, "이름을 입력해주세요."),
     POST_ACCOUNTS_INVALID_EMAIL(false, 3006, "이메일 형식이 잘못되었습니다."),
     FAILED_TO_LOGIN(false, 3007, "비밀번호가 틀렸습니다."),
+    DUPLICATE_EMAIL(false, 3008, "중복된 이메일은 사용할 수 없습니다."),
+    DUPLICATE_NICKNAME(false,3009,"중복된 닉네임은 사용할 수 없습니다."),
 
     /*서버, DB 4000*/
     DATABASE_ERROR(false, 4000, "DB에 문제가 발생했습니다."),
@@ -37,9 +39,8 @@ public enum ErrorCode {
     NO_EXIST_BREEDTAGID(false, 4007, "해당 견종 코드가 존재하지 않습니다."),
     NO_EXIST_PETSIZECODE(false, 4008, "해당 사이즈 정보가 존재하지 않습니다."),
     TIMEOUT_EXCEPTION(false, 4010, "문제를 생성하는데 시간이 오래 소요됩니다"),
-    DUPLICATE_EMAIL(false, 4011, "중복된 이메일은 사용할 수 없습니다."),
-    DUPLICATE_NICKNAME(false,4012,"중복된 닉네임은 사용할 수 없습니다.");
-
+    INVALID_PET_SIZE(false,4011, "petvalue값에 문제가 있습니다."),
+    INVALID_PERCENTAGE(false,4012, "백분율이 유효한 범위에 없습니다.");
 
     /*상품 관련 5000*/
 
