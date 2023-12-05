@@ -81,10 +81,11 @@ public class UserController {
             // 생성된 회원 정보 조회
             User createdUser = userService.getUserById(userId);
             // UserRes 객체를 생성하여 반환
-            UserRes userRes = new UserRes(createdUser);
+            UserRes userRes = new UserRes(createdUser.getUserId(), createdUser.getNickname(), createdUser.getEmail());
             return new BaseResponse<>(userRes);
         } catch (BusinessException e) {
             return new BaseResponse<>(e.getErrorCode());
         }
     }
+
 }
