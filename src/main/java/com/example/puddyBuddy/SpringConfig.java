@@ -18,12 +18,12 @@ public class SpringConfig {
     private final  BoardRepository boardRepository;
     private final ClothesRepository clothesRepository;
     private final ClothesPhotoRepository clothesPhotoRepository;
-
     private final ArClothesRepository arClothesRepository;
     private final PetsnalColorRepository petsnalColorRepository;
+    private final PetsizeRepository petsizeRepository;
 
     @Autowired
-    public SpringConfig(BreedTagRepository breedTagRepository, ColorRepository colorRepository, PersonalColorRepository personalColorRepository, PreferRepository preferRepository, SizeRepository sizeRepository, StoreRepository storeRepository, UserRepository userRepository             ,CommentRepository commentRepository, BoardRepository boardRepository, ClothesRepository clothesRepository, ClothesPhotoRepository clothesPhotoRepository ,ArClothesRepository arClothesRepository, PetsnalColorRepository petsnalColorRepository) {
+    public SpringConfig(BreedTagRepository breedTagRepository, ColorRepository colorRepository, PersonalColorRepository personalColorRepository, PreferRepository preferRepository, SizeRepository sizeRepository, StoreRepository storeRepository, UserRepository userRepository             ,CommentRepository commentRepository, BoardRepository boardRepository, ClothesRepository clothesRepository, ClothesPhotoRepository clothesPhotoRepository ,ArClothesRepository arClothesRepository, PetsnalColorRepository petsnalColorRepository, PetsizeRepository petsizeRepository) {
 
         this.breedTagRepository = breedTagRepository;
         this.colorRepository = colorRepository;
@@ -38,6 +38,6 @@ public class SpringConfig {
         this.clothesPhotoRepository = clothesPhotoRepository;
         this.arClothesRepository = arClothesRepository;
         this.petsnalColorRepository = petsnalColorRepository;
-
+        this.petsizeRepository = petsizeRepository;
     }
 }

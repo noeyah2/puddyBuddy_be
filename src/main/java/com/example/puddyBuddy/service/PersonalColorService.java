@@ -14,8 +14,8 @@ public class PersonalColorService {
         this.userRepository = userRepository;
     }
 
-    public List<PersonalColor> getPersonalColors(){
-        List<PersonalColor> objs = userRepository.findAll();
-        return objs;
-    }
+//    public List<PersonalColor> getPersonalColors(){
+//        List<PersonalColor> objs = userRepository.findAll();
+//        return objs;
+//    }
 }

@@ -38,7 +38,7 @@ public class ClothesController {
     public BaseResponse<List<ClothesListRes>> getClothesALL(
             @RequestParam(name = "color_id", required = false, defaultValue = "-1") Long colorId,
             @RequestParam(name = "sizeClothes_id", required = false, defaultValue = "-1") Long sizeClothesId,
-            @RequestParam(name = "personalcolor_id", required = false) Long personalColorId,
+            @RequestParam(name = "personalcolor_id", required = false, defaultValue = "-1") Long personalColorId,
             @RequestParam(name = "store_id", required = false) Long storeId
     ) {
         try {
@@ -51,7 +51,7 @@ public class ClothesController {
                 if (sizeClothesId != null && sizeClothesId != -1) {
                     predicates.add(criteriaBuilder.equal(root.get("sizeClothesId"), sizeClothesId));
                 }
-                if (personalColorId != null) {
+                if (personalColorId != null && personalColorId != -1) {
                     predicates.add(criteriaBuilder.equal(root.get("personalColor").get("personalColorId"), personalColorId));
                 }
                 if (storeId != null) {

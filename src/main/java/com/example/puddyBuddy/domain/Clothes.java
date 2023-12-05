@@ -14,7 +14,6 @@ public class Clothes {
         @Column(name = "clothes_id")
         private Long clothesId;
 
-
         @ManyToOne
         @JoinColumn(name = "store_id")
         private Store store;

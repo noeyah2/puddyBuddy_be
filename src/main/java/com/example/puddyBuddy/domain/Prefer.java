@@ -26,12 +26,9 @@ public class Prefer {
         @JoinColumn(name = "personal_color_id")
         private PersonalColor personalColor;
 
+        @OneToOne(mappedBy = "prefer")
+        private Petsize petsize;
+
         @Column(name = "name")
         private String name;
-
-        @Column(name = "chest")
-        private Float chest;
-
-        @Column(name = "back")
-        private Float back;
 }
