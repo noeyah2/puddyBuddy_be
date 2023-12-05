@@ -26,7 +26,8 @@ public class Prefer {
         @JoinColumn(name = "personal_color_id")
         private PersonalColor personalColor;
 
-        @OneToOne(mappedBy = "prefer")
+        @ManyToOne
+        @JoinColumn(name = "pet_size_id")
         private Petsize petsize;
 
         @Column(name = "name")

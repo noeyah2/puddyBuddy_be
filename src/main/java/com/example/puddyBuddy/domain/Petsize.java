@@ -14,8 +14,8 @@ public class Petsize {
     @Column(name = "pet_size_id")
     private Long petsizeId;
 
-    @OneToOne
-    @JoinColumn(name = "prefer_id", unique = true)
+    @ManyToOne
+    @JoinColumn(name = "prefer_id")
     private Prefer prefer;
 
     @ManyToOne
