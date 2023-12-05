@@ -17,6 +17,11 @@ public class UserRes {
     public UserRes(Long userId) {
         this.userId = userId;
     }
+    public UserRes(Long userId, String email, String nickname){
+        this.userId = userId;
+        this.email = email;
+        this.nickname = nickname;
+    }
 
     @Schema(description = "회원 번호", example = "1")
     private Long userId;
