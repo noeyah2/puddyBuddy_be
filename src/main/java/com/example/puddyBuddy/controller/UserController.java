@@ -70,4 +70,17 @@ public class UserController {
             return new BaseResponse<>(e.getErrorCode());
         }
     }
+
+    @Operation(summary = "새로운 회원인 경우 입력받은 이메일과 닉네임으로 회원 생성")
+    @GetMapping("/newuser")
+    public BaseResponse<?> createNewUser(
+            @RequestParam(name = "email") String email,
+            @RequestParam(name = "nickname") String nickname) {
+        try {
+            Long userId = userService.createNewUser(email, nickname);
+            return new BaseResponse<>(userId);
+        } catch (BusinessException e) {
+            return new BaseResponse<>(e.getErrorCode());
+        }
+    }
 }

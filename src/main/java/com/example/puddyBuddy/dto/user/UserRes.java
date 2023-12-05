@@ -18,6 +18,11 @@ public class UserRes {
         this.userId = userId;
     }
 
+    public UserRes(Long userId, String nickname){
+        this.userId = userId;
+        this.nickname = nickname;
+    }
+
     @Schema(description = "회원 번호", example = "1")
     private Long userId;
 

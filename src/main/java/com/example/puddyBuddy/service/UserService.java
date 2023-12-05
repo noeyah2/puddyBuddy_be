@@ -37,4 +37,13 @@ public class UserService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.NO_EXIST_USER));
         return user.getUserId();
     }
+
+    public Long createNewUser(String email, String nickname) {
+        User newUser = new User();
+        newUser.setEmail(email);
+        newUser.setNickname(nickname);
+
+        User savedUser = userRepository.save(newUser);
+        return savedUser.getUserId();
+    }
 }
