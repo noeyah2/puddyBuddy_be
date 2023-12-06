@@ -2,6 +2,7 @@ package com.example.puddyBuddy.service;
 
 import com.example.puddyBuddy.domain.BreedTag;
 import com.example.puddyBuddy.domain.Petsize;
+import com.example.puddyBuddy.domain.PetsizeTotal;
 import com.example.puddyBuddy.domain.Prefer;
 import com.example.puddyBuddy.dto.petsize.PetsizeCreateRes;
 import com.example.puddyBuddy.dto.petsize.PetsizeInfoRes;
@@ -9,6 +10,7 @@ import com.example.puddyBuddy.exception.common.BusinessException;
 import com.example.puddyBuddy.exception.common.ErrorCode;
 import com.example.puddyBuddy.repository.BreedTagRepository;
 import com.example.puddyBuddy.repository.PetsizeRepository;
+import com.example.puddyBuddy.repository.PetsizeTotalRepository;
 import com.example.puddyBuddy.repository.PreferRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +23,13 @@ import java.util.List;
 public class PetsizeService {
     private final PetsizeRepository petsizeRepository;
     private final PreferRepository preferRepository;
-    private final BreedTagRepository breedTagRepository;
+    private final PetsizeTotalRepository petsizeTotalRepository;
 
     @Autowired
-    public PetsizeService(PetsizeRepository petsizeRepository, PreferRepository preferRepository, BreedTagRepository breedTagRepository) {
+    public PetsizeService(PetsizeRepository petsizeRepository, PreferRepository preferRepository, PetsizeTotalRepository petsizeTotalRepository) {
         this.petsizeRepository = petsizeRepository;
         this.preferRepository = preferRepository;
-        this.breedTagRepository = breedTagRepository;
+        this.petsizeTotalRepository = petsizeTotalRepository;
     }
 
     public PetsizeCreateRes createSize(Long preferId, Float neck, Float chest, Float back, Float leg) {
@@ -71,29 +73,16 @@ public class PetsizeService {
         return prefer.get();
     }
 
-    public PetsizeInfoRes getPercentages(long breedTagId, long petsizeId) {
-        // Step 1: Find breedtagcode based on breedcode
-        String breedTagCode = searchBreedcode(breedTagId);
+    public PetsizeInfoRes getPercentages(long petsizeId) {
+        Petsize userPetsize = findPetsizeById(petsizeId);
 
-        // Step 2: Find breeds with the same breedtagcode
-        List<Petsize> breedPetsizes = petsizeRepository.findByBreedTagBreedTagCode(breedTagCode);
+        String breedTagCode = userPetsize.getBreedTag().getBreedTagCode();
+        List<PetsizeTotal> breedPetsizeTotals = findPetsizeTotalsByBreedTagCode(breedTagCode);
 
-        if (breedPetsizes.isEmpty()) {
-            throw new BusinessException(ErrorCode.NO_EXIST_PETSIZECODE);
-        }
-
-        // Step 3: Find Petsize based on petsizeId
-        Optional<Petsize> petsizeOptional = petsizeRepository.findById(petsizeId);
-        if (petsizeOptional.isEmpty()) {
-            throw new BusinessException(ErrorCode.NO_EXIST_PETSIZECODE);
-        }
-        Petsize userPetsize = petsizeOptional.get();
-
-        // Step 4: Calculate percentages
-        Float perNeck = calculatePercentage(userPetsize.getNeck(), calculateAverage(breedPetsizes, "neck"));
-        Float perChest = calculatePercentage(userPetsize.getChest(), calculateAverage(breedPetsizes, "chest"));
-        Float perBack = calculatePercentage(userPetsize.getBack(), calculateAverage(breedPetsizes, "back"));
-        Float perLeg = calculatePercentage(userPetsize.getLeg(), calculateAverage(breedPetsizes, "leg"));
+        Float perNeck = calculatePercentage(userPetsize.getNeck(), findAverageByPart(breedPetsizeTotals, "neck-size"));
+        Float perChest = calculatePercentage(userPetsize.getChest(), findAverageByPart(breedPetsizeTotals, "chest-size"));
+        Float perBack = calculatePercentage(userPetsize.getBack(), findAverageByPart(breedPetsizeTotals, "back-length"));
+        Float perLeg = calculatePercentage(userPetsize.getLeg(), findAverageByPart(breedPetsizeTotals, "shoulder-height"));
 
         PetsizeInfoRes petsizeInfoRes = new PetsizeInfoRes();
         petsizeInfoRes.setPerNeck(perNeck);
@@ -104,18 +93,32 @@ public class PetsizeService {
         return petsizeInfoRes;
     }
 
-    private String searchBreedcode(long breedTagId) {
-        Optional<BreedTag> breedTagOptional = breedTagRepository.findById(breedTagId);
-
-        if (breedTagOptional.isEmpty()) {
-            throw new BusinessException(ErrorCode.NO_EXIST_BREEDTAGID);
+    public Petsize findPetsizeById(long petsizeId) {
+        Optional<Petsize> petsizeOptional = petsizeRepository.findById(petsizeId);
+        if (petsizeOptional.isEmpty()) {
+            throw new BusinessException(ErrorCode.NO_EXIST_PETSIZECODE);
         }
+        return petsizeOptional.get();
+    }
 
-        return breedTagOptional.get().getBreedTagCode();
+    private List<PetsizeTotal> findPetsizeTotalsByBreedTagCode(String breedTagCode) {
+        List<PetsizeTotal> breedPetsizeTotals = petsizeTotalRepository.findByBreedTagBreedTagCode(breedTagCode);
+        if (breedPetsizeTotals.isEmpty()) {
+            throw new BusinessException(ErrorCode.EMPTY_DATA);
+        }
+        return breedPetsizeTotals;
+    }
+
+    private Float findAverageByPart(List<PetsizeTotal> petsizeTotals, String part) {
+        for (PetsizeTotal petsizeTotal : petsizeTotals) {
+            if (petsizeTotal.getPart().equals(part)) {
+                return petsizeTotal.getAvg();
+            }
+        }
+        throw new BusinessException(ErrorCode.EMPTY_DATA);
     }
 
     private Float calculateAverage(List<Petsize> petsizes, String attribute) {
-        // Calculate the average value for the specified attribute (neck, chest, back, leg)
         float sum = 0;
         int count = 0;
 
@@ -136,8 +139,12 @@ public class PetsizeService {
             }
             count++;
         }
-
-        return count > 0 ? sum / count : 0;
+        Float average = count > 0 ? sum / count : null;
+        printToConsole(attribute, average); // 콘솔에 출력
+        return average;
+    }
+    private void printToConsole(String attribute, Float average) {
+        System.out.println(attribute + " Average: " + (average != null ? average : "N/A"));
     }
 
     private Float calculatePercentage(Float userValue, Float petValue) {
