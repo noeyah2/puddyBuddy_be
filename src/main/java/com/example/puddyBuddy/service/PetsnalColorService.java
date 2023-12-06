@@ -36,7 +36,7 @@ public class PetsnalColorService {
         this.personalColorRepository = personalColorRepository;
     }
 
-    public PetsnalColorRes makePetsnalTest(Long preferId, String img) throws IOException{
+    public PetsnalColorRes makePetsnalTest(Long preferId, String img) throws IOException, ParseException {
         // flask 서버로 요청
         // => preferid-img petsnalcolors db에 저장
         sendGetRequest(img, preferId.toString());
