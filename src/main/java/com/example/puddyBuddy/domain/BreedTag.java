@@ -19,4 +19,8 @@ public class BreedTag {
 
         @Column(name = "breed_tag_code")
         private String breedTagCode;
+
+        @ManyToOne
+        @JoinColumn(name = "pet_size_total_id")
+        private PetsizeTotal petsizeTotal;
 }
