@@ -7,6 +7,9 @@ import com.example.puddyBuddy.dto.PetsnalColor.PetsnalColorRes;
 import com.example.puddyBuddy.repository.PersonalColorRepository;
 import com.example.puddyBuddy.repository.PetsnalColorRepository;
 import com.example.puddyBuddy.repository.PreferRepository;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -149,7 +152,7 @@ public class PetsnalColorService {
         }
     }
 
-    private static void sendGetRequest(String imageUrl, String preferId) throws IOException {
+    private static void sendGetRequest(String imageUrl, String preferId) throws IOException, ParseException {
         String url = "http://localhost:5000/petsnal_color";  // Flask 애플리케이션의 엔드포인트 URL
 
         // URL 및 파라미터 설정
@@ -168,9 +171,11 @@ public class PetsnalColorService {
             response.append(line);
         }
         reader.close();
-
-        // 응답 출력
-        System.out.println("Response: " + response.toString());
+        // JSON 파싱
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) parser.parse(response.toString());
+        String isSuccess = (String) jsonObject.get("isSuccess");
+        System.out.println(isSuccess);
 
         // 연결 닫기
         connection.disconnect();
