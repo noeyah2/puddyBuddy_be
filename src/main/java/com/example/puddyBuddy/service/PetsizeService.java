@@ -31,26 +31,32 @@ public class PetsizeService {
     }
 
     public PetsizeCreateRes createSize(Long preferId, Float neck, Float chest, Float back, Float leg) {
-        Petsize newPetsize = new Petsize();
         PetsizeCreateRes petsizeCreateRes = new PetsizeCreateRes();
+        Petsize newPetsize = new Petsize();
 
-        // Step 1: 선호조건 번호를 통해 견종 번호 및 Prefer 찾기
+        // Step 1: 선호조건 번호를 통해 Prefer 찾기
         Prefer prefer = findPreferById(preferId);
-        BreedTag breedTag = prefer.getBreedTag();
 
-        // Step 2: 찾은 견종 번호 및 Prefer를 새로운 펫 사이즈에 설정하기
-        newPetsize.setBreedTag(breedTag);
+        // Step 2: 찾은 Prefer를 새로운 펫 사이즈에 설정하기
         newPetsize.setPrefer(prefer);
 
-        // Step 3: 다른 속성들 설정하기
+        // Step 3: 찾은 Prefer에서 BreedTag 얻어오기
+        BreedTag breedTag = prefer.getBreedTag();
+        newPetsize.setBreedTag(breedTag);
+
+        // Step 4: 다른 속성들 설정하기
         newPetsize.setNeck(neck);
         newPetsize.setChest(chest);
         newPetsize.setBack(back);
         newPetsize.setLeg(leg);
 
-        // Step 4: 새로운 펫 사이즈 저장하기
+        // Step 5: 새로운 펫 사이즈 저장하기
         Long newPetsizeId = petsizeRepository.save(newPetsize).getPetsizeId();
         petsizeCreateRes.setPetsizeId(newPetsizeId);
+
+        // Step 6: Prefer 엔터티에 새로운 Petsize 참조 설정하기
+        prefer.setPetsize(newPetsize);
+        preferRepository.save(prefer); // 업데이트된 Prefer 저장
 
         return petsizeCreateRes;
     }

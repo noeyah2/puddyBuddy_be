@@ -11,6 +11,9 @@ public class PetsizeCreateReq {
     @Schema(description = "선호 조건 번호", example = "1")
     private Long preferId;
 
+    @Schema(description = "견종 조건 번호", example = "1")
+    private Long breedTagId;
+
     @Schema(description = "목 둘레", example = "20.1")
     private Float neck;
 
