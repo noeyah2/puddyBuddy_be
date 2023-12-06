@@ -2,7 +2,6 @@ package com.example.puddyBuddy.controller;
 
 import com.example.puddyBuddy.dto.petsize.PetsizeCreateReq;
 import com.example.puddyBuddy.dto.petsize.PetsizeCreateRes;
-import com.example.puddyBuddy.dto.petsize.PetsizeInfoReq;
 import com.example.puddyBuddy.dto.petsize.PetsizeInfoRes;
 import com.example.puddyBuddy.dto.prefer.PreferCreateRes;
 import com.example.puddyBuddy.exception.common.BusinessException;
@@ -27,9 +26,15 @@ public class PetsizeController {
 
     @Operation(summary = "사이즈 등록", description = "사이즈 정보를 주면 그걸 등록합니다.")
     @PostMapping("/create")
-    public BaseResponse<PetsizeCreateRes> createSize(@RequestBody PetsizeCreateReq petsizeCreateReq){
+    public BaseResponse<PetsizeCreateRes> createSize(@RequestBody PetsizeCreateReq petsizeCreateReq) {
         try {
-            PetsizeCreateRes petsizeCreateRes = petsizeService.createSize(petsizeCreateReq.getPreferId(), petsizeCreateReq.getNeck(), petsizeCreateReq.getChest(), petsizeCreateReq.getBack(), petsizeCreateReq.getLeg());
+            PetsizeCreateRes petsizeCreateRes = petsizeService.createSize(
+                    petsizeCreateReq.getPreferId(),
+                    petsizeCreateReq.getNeck(),
+                    petsizeCreateReq.getChest(),
+                    petsizeCreateReq.getBack(),
+                    petsizeCreateReq.getLeg()
+            );
             return new BaseResponse<>(petsizeCreateRes);
         } catch (BusinessException e) {
             return new BaseResponse<>(e.getErrorCode());
@@ -37,13 +42,10 @@ public class PetsizeController {
     }
 
     @Operation(summary = "펫 사이즈 정보 조회", description = "펫 사이즈 정보를 조회합니다.")
-    @GetMapping("/getInfo")
-    public BaseResponse<PetsizeInfoRes> getPercentages(@RequestBody PetsizeInfoReq petsizeInfoReq) {
+    @GetMapping("/getInfo/{petsizeId}")
+    public BaseResponse<PetsizeInfoRes> getPercentages(@PathVariable Long petsizeId) {
         try {
-            PetsizeInfoRes petsizeInfoRes = petsizeService.getPercentages(
-                    petsizeInfoReq.getBreedTag().getBreedTagId(),
-                    petsizeInfoReq.getPetsizeId()
-            );
+            PetsizeInfoRes petsizeInfoRes = petsizeService.getPercentages(petsizeId);
             return new BaseResponse<>(petsizeInfoRes);
         } catch (BusinessException e) {
             return new BaseResponse<>(e.getErrorCode());
