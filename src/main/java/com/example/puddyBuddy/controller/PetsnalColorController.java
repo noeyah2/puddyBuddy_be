@@ -6,6 +6,7 @@ import com.example.puddyBuddy.response.BaseResponse;
 import com.example.puddyBuddy.service.PetsnalColorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +33,8 @@ public class PetsnalColorController {
             return new BaseResponse<>(res);
         } catch (BusinessException e) {
             return new BaseResponse<>(e.getErrorCode());
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
     }
 
