@@ -42,8 +42,8 @@ public class PetsizeController {
     }
 
     @Operation(summary = "펫 사이즈 정보 조회", description = "펫 사이즈 정보를 조회합니다.")
-    @GetMapping("/getInfo")
-    public BaseResponse<PetsizeInfoRes> getPercentages(@RequestParam(name = "petsizeId") Long petsizeId) {
+    @GetMapping("/getInfo/{petsizeId}")
+    public BaseResponse<PetsizeInfoRes> getPercentages(@PathVariable Long petsizeId) {
         try {
             PetsizeInfoRes petsizeInfoRes = petsizeService.getPercentages(petsizeId);
             return new BaseResponse<>(petsizeInfoRes);

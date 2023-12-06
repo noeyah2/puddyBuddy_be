@@ -79,10 +79,10 @@ public class PetsizeService {
         String breedTagCode = userPetsize.getBreedTag().getBreedTagCode();
         List<PetsizeTotal> breedPetsizeTotals = findPetsizeTotalsByBreedTagCode(breedTagCode);
 
-        Float perNeck = calculatePercentage(userPetsize.getNeck(), findAverageByPart(breedPetsizeTotals, "neck-size"));
-        Float perChest = calculatePercentage(userPetsize.getChest(), findAverageByPart(breedPetsizeTotals, "chest-size"));
-        Float perBack = calculatePercentage(userPetsize.getBack(), findAverageByPart(breedPetsizeTotals, "back-length"));
-        Float perLeg = calculatePercentage(userPetsize.getLeg(), findAverageByPart(breedPetsizeTotals, "shoulder-height"));
+        Float perNeck = calculatePercentage(userPetsize.getNeck(), findAverageByPart(breedPetsizeTotals, "neck-size"), "neck-size");
+        Float perChest = calculatePercentage(userPetsize.getChest(), findAverageByPart(breedPetsizeTotals, "chest-size"), "chest-size");
+        Float perBack = calculatePercentage(userPetsize.getBack(), findAverageByPart(breedPetsizeTotals, "back-length"), "back-length");
+        Float perLeg = calculatePercentage(userPetsize.getLeg(), findAverageByPart(breedPetsizeTotals, "should-height"), "shoulder-height");
 
         PetsizeInfoRes petsizeInfoRes = new PetsizeInfoRes();
         petsizeInfoRes.setPerNeck(perNeck);
@@ -118,36 +118,14 @@ public class PetsizeService {
         throw new BusinessException(ErrorCode.EMPTY_DATA);
     }
 
-    private Float calculateAverage(List<Petsize> petsizes, String attribute) {
-        float sum = 0;
-        int count = 0;
-
-        for (Petsize petsize : petsizes) {
-            switch (attribute) {
-                case "neck":
-                    sum += petsize.getNeck();
-                    break;
-                case "chest":
-                    sum += petsize.getChest();
-                    break;
-                case "back":
-                    sum += petsize.getBack();
-                    break;
-                case "leg":
-                    sum += petsize.getLeg();
-                    break;
-            }
-            count++;
-        }
-        Float average = count > 0 ? sum / count : null;
-        printToConsole(attribute, average); // 콘솔에 출력
-        return average;
-    }
     private void printToConsole(String attribute, Float average) {
         System.out.println(attribute + " Average: " + (average != null ? average : "N/A"));
     }
 
-    private Float calculatePercentage(Float userValue, Float petValue) {
+    private Float calculatePercentage(Float userValue, Float petValue, String attribute) {
+        // userValue가 null이거나 0인 경우 0으로 처리
+        userValue = (userValue == null) ? 0 : userValue;
+
         // petValue가 사용 가능하고 0이 아닌지 확인합니다.
         if (petValue == null || petValue == 0) {
             throw new BusinessException(ErrorCode.INVALID_PET_SIZE);
@@ -160,6 +138,10 @@ public class PetsizeService {
         if (percentage < 0 || percentage > 100) {
             throw new BusinessException(ErrorCode.INVALID_PERCENTAGE);
         }
+
+        // 콘솔에 백분율과 petValue 출력
+//        printToConsole(attribute + " Percentage", percentage);
+//        printToConsole(attribute + " Pet Value", petValue);
 
         return percentage;
     }
