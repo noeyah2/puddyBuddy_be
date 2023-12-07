@@ -32,10 +32,10 @@ public class UserService {
         return userRepository.findByEmail(email).isPresent();
     }
 
-    public Long getUserIdByEmail(String email) {
+    public User getUserIdByEmail(String email) {
         User user = (User) userRepository.findByEmail(email)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NO_EXIST_USER));
-        return user.getUserId();
+        return user;
     }
 
     public Long createNewUser(String email, String nickname) {

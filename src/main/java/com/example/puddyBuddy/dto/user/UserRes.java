@@ -14,9 +14,6 @@ public class UserRes {
         this.nickname = user.getNickname();
         this.email = user.getEmail();
     }
-    public UserRes(Long userId) {
-        this.userId = userId;
-    }
     public UserRes(Long userId, String email, String nickname){
         this.userId = userId;
         this.email = email;

@@ -64,8 +64,8 @@ public class UserController {
     @GetMapping("/success")
     public BaseResponse<UserRes> giveUser(@RequestParam(name = "email") String email) {
         try {
-            Long userId = userService.getUserIdByEmail(email);
-            return new BaseResponse<>(new UserRes(userId));
+            User user = userService.getUserIdByEmail(email);
+            return new BaseResponse<>(new UserRes(user));
         } catch (BusinessException e) {
             return new BaseResponse<>(e.getErrorCode());
         }
