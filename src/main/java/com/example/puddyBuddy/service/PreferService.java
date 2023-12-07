@@ -62,7 +62,7 @@ public class PreferService {
 
         // user
         Optional<User> user = userRepository.findByUserId(userId);
-        if(user.isEmpty()){
+        if (user.isEmpty()) {
             throw new BusinessException(ErrorCode.NO_EXIST_USER);
         }
         newPrefer.setUser(user.get());
@@ -75,28 +75,30 @@ public class PreferService {
             }
             newPrefer.setPersonalColor(personalColor.get());
         } else {
-            // If personalColorId is not provided, set PersonalColor to null or handle it accordingly
-            newPrefer.setPersonalColor(null); // or handle it as needed
+            // If personalColorId is not provided, set PersonalColor to default (id = 5)
+            Optional<PersonalColor> defaultPersonalColor = personalColorRepository.findById(5L);
+            if (defaultPersonalColor.isPresent()) {
+                newPrefer.setPersonalColor(defaultPersonalColor.get());
+            }
         }
 
         // breed
-        Optional<BreedTag> breedTag = breedTagRepository.findByBreedTagId(breedTagId);
-        if (breedTag.isEmpty()) {
-            throw new BusinessException(ErrorCode.NO_EXIST_BREEDTAGID);
+        if (breedTagId != null) {
+            Optional<BreedTag> breedTag = breedTagRepository.findByBreedTagId(breedTagId);
+            if (breedTag.isEmpty()) {
+                throw new BusinessException(ErrorCode.NO_EXIST_BREEDTAGID);
+            }
+            newPrefer.setBreedTag(breedTag.get());
+        } else {
+            // If breedTagId is not provided, set BreedTag to null or handle it accordingly
+            newPrefer.setBreedTag(null); // or handle it as needed
         }
-        newPrefer.setBreedTag(breedTag.get());
 
         // petsize
-        Petsize petsize = new Petsize();
-        petsize.setNeck(0.0f);
-        petsize.setChest(0.0f);
-        petsize.setBack(0.0f);
-        petsize.setLeg(0.0f);
-//        Optional<Petsize> petsize = petsizeRepository.findByPetsizeId(petsizeId);
-//        if(petsize.isEmpty()){
-//            throw new BusinessException(ErrorCode.NO_EXIST_PETSIZECODE);
-//        }
-//        newPrefer.setPetsize(petsize.get());
+        Optional<Petsize> defaultPetsize = petsizeRepository.findById(2L);
+        if (defaultPetsize.isPresent()) {
+            newPrefer.setPetsize(defaultPetsize.get());
+        }
 
         // etc
         newPrefer.setName(preferName);
@@ -106,7 +108,6 @@ public class PreferService {
 
         return preferCreateRes;
     }
-
 
     public void deletePrefer(Long preferId) {
         preferRepository.deleteById(preferId);
