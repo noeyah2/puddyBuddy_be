@@ -4,6 +4,7 @@ import com.example.puddyBuddy.domain.BreedTag;
 import com.example.puddyBuddy.domain.Petsize;
 import com.example.puddyBuddy.domain.PetsizeTotal;
 import com.example.puddyBuddy.domain.Prefer;
+import com.example.puddyBuddy.dto.petsize.PetInfoRes;
 import com.example.puddyBuddy.dto.petsize.PetsizeCreateRes;
 import com.example.puddyBuddy.dto.petsize.PetsizeInfoRes;
 import com.example.puddyBuddy.exception.common.BusinessException;
@@ -139,10 +140,19 @@ public class PetsizeService {
             throw new BusinessException(ErrorCode.INVALID_PERCENTAGE);
         }
 
-        // 콘솔에 백분율과 petValue 출력
-//        printToConsole(attribute + " Percentage", percentage);
-//        printToConsole(attribute + " Pet Value", petValue);
-
         return percentage;
+    }
+
+    public PetInfoRes getInfo(Long petsizeId) {
+        PetInfoRes petInfoRes = new PetInfoRes();
+
+        Petsize petsize = findPetsizeById(petsizeId);
+
+        petInfoRes.setNeck(petsize.getNeck());
+        petInfoRes.setChest(petsize.getChest());
+        petInfoRes.setBack(petsize.getBack());
+        petInfoRes.setLeg(petsize.getLeg());
+
+        return petInfoRes;
     }
 }

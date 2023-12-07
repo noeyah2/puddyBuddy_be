@@ -1,5 +1,8 @@
 package com.example.puddyBuddy.controller;
 
+import com.example.puddyBuddy.domain.Comment;
+import com.example.puddyBuddy.dto.comment.CommentListRes;
+import com.example.puddyBuddy.dto.petsize.PetInfoRes;
 import com.example.puddyBuddy.dto.petsize.PetsizeCreateReq;
 import com.example.puddyBuddy.dto.petsize.PetsizeCreateRes;
 import com.example.puddyBuddy.dto.petsize.PetsizeInfoRes;
@@ -12,6 +15,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Controller
 @RestController
@@ -23,6 +29,19 @@ public class PetsizeController {
     public PetsizeController(PetsizeService petsizeService) {
         this.petsizeService = petsizeService;
     }
+
+    @Operation(summary = "사이즈 조회", description = "사이즈 조회하도록")
+    @GetMapping("/show/{petsizeId}")
+    public BaseResponse<PetInfoRes> getSizeInfo(@PathVariable Long petsizeId) {
+        try {
+            PetInfoRes petInfoRes = petsizeService.getInfo(petsizeId);
+            return new BaseResponse<>(petInfoRes);
+        } catch (BusinessException e) {
+            return new BaseResponse<>(e.getErrorCode());
+        }
+    }
+
+
 
     @Operation(summary = "사이즈 등록", description = "사이즈 정보를 주면 그걸 등록합니다.")
     @PostMapping("/create")
