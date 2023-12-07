@@ -14,13 +14,16 @@ public class PreferNumRes {
         this.breedTagId = prefer.getBreedTag().getBreedTagId();
         this.personalColorId = prefer.getPersonalColor().getPersonalColorId();
         this.name = prefer.getName();
-//        this.petsizeId = prefer.getPetsize().getPetsizeId();
+        this.petsizeId = prefer.getPetsize().getPetsizeId();
     }
     @Schema(description = "사용자 번호", example = "1")
     private long userId;
 
     @Schema(description = "견종 번호", example = "1")
     private long breedTagId;
+
+    @Schema(description = "사이즈 번호", example = "1")
+    private long petsizeId;
 
     @Schema(description = "퍼스널 컬러 번호", example = "1")
     private long personalColorId;
