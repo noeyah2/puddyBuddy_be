@@ -56,7 +56,7 @@ public class PreferService {
         return response;
     }
 
-    public PreferCreateRes createPrefer(Long userId, String preferName, long personalColorId, long breedTagId) {
+    public PreferCreateRes createPrefer(Long userId, String preferName, Long personalColorId, Long breedTagId) {
         Prefer newPrefer = new Prefer();
         PreferCreateRes preferCreateRes = new PreferCreateRes();
 
@@ -68,11 +68,16 @@ public class PreferService {
         newPrefer.setUser(user.get());
 
         // personal color
-        Optional<PersonalColor> personalColor = personalColorRepository.findByPersonalColorId(personalColorId);
-        if (personalColor.isEmpty()) {
-            throw new BusinessException(ErrorCode.NO_EXIST_PERSONALCOLORCODE);
+        if (personalColorId != null) {
+            Optional<PersonalColor> personalColor = personalColorRepository.findByPersonalColorId(personalColorId);
+            if (personalColor.isEmpty()) {
+                throw new BusinessException(ErrorCode.NO_EXIST_PERSONALCOLORCODE);
+            }
+            newPrefer.setPersonalColor(personalColor.get());
+        } else {
+            // If personalColorId is not provided, set PersonalColor to null or handle it accordingly
+            newPrefer.setPersonalColor(null); // or handle it as needed
         }
-        newPrefer.setPersonalColor(personalColor.get());
 
         // breed
         Optional<BreedTag> breedTag = breedTagRepository.findByBreedTagId(breedTagId);

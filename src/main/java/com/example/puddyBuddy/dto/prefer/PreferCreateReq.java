@@ -15,8 +15,8 @@ public class PreferCreateReq {
     private String preferName;
 
     @Schema(description = "퍼스널 컬러 번호", example = "1")
-    private long personalColorId;
+    private Long personalColorId;
 
     @Schema(description = "견종 번호", example = "1")
-    private long breedTagId;
+    private Long breedTagId;
 }
